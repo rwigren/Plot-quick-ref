@@ -1,7 +1,7 @@
 ---
 title: "ggplot2 quick reference"
 output:
-  html_document:
+  github_document:
 ---
 
 ```{r setup, include=FALSE}
@@ -213,7 +213,7 @@ fit %>%
 
 Plots from ´ggplot2´ can be turned into interactive plots through the library [plotly](https://github.com/plotly/plotly.py) usually with the ease of "plug and play". Here are a few examples of some interactive charts using the method.
 
-```{r}
+```{r eval=FALSE}
 library(plotly)
 p <- ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, color=Species, size = Petal.Length )) + 
   geom_point() +
@@ -224,7 +224,7 @@ ggplotly(p)
 
 ```
 
-```{r}
+```{r eval=FALSE}
 p <- iris %>%
   pivot_longer(cols = -Species) %>%
   ggplot(aes(y=value, x=name, fill=Species)) +
@@ -235,12 +235,6 @@ ggplotly(p) %>%
   layout(boxmode = "group")
 ```
 
-```{r}
-p <- ggplot(iris, aes(x=Sepal.Length, fill = Species)) +
-  geom_histogram()
-
-ggplotly(p)
-```
 
 ## Theme settings
 

@@ -1,0 +1,351 @@
+ggplot2 quick reference
+================
+
+# test123
+
+## Plots
+
+### Table of contents
+
+1.  [Scatter plots](#scatter)
+2.  [Bar plots](#bar)
+3.  [Histograms](#hist)
+4.  [Box plots](#box)
+5.  [Distributions](#dist)
+6.  [Time series](#ts)
+
+``` r
+library(ggplot2)
+library(dplyr)
+library(tidyverse)
+
+# Library for combining ggplots 
+library(patchwork)
+```
+
+### Scatter plots
+
+You can separate data on `color`, `Shape` and `size`. Position `jitter`
+and `alpha` can be used to make plots more readable
+
+``` r
+ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, color=Species)) + 
+  geom_point(size = 4) +
+  xlab("Sepal length") +
+  ylab("Sepal width")
+```
+
+<img src="ggplot2_quick_ref_files/figure-gfm/unnamed-chunk-2-1.svg" style="display: block; margin: auto auto auto 0;" />
+
+``` r
+#library(GGally)
+#ggpairs(iris, columns = 1:4, aes(color=Species))
+```
+
+### Bar plots
+
+Bar plots can be used either through `geom_bar()`, which counts the
+number of instances of each group of x or y, or through `geom_col()`
+which takes the height/length of the bars.
+
+``` r
+iris %>% 
+  filter(Sepal.Length > 5) %>% 
+  
+  ggplot(aes(x=Species, fill=Species)) +
+  geom_bar()
+```
+
+<img src="ggplot2_quick_ref_files/figure-gfm/unnamed-chunk-4-1.svg" style="display: block; margin: auto auto auto 0;" />
+
+``` r
+iris %>% 
+  group_by(Species) %>% 
+  summarise_all(mean) %>% 
+  pivot_longer(-Species, values_to = "mean") %>%
+  
+  ggplot(aes(x=name, y=mean, fill=Species)) +
+  geom_col(position = "dodge2")
+```
+
+<img src="ggplot2_quick_ref_files/figure-gfm/unnamed-chunk-5-1.svg" style="display: block; margin: auto auto auto 0;" />
+
+### Histograms
+
+Default position is `"stack"`. Use position `"identity"` for overlapping
+histograms. Bins/binwidth is determined automatically for this example.
+Change bins with `bins = n` or `binwidth = c`.
+
+``` r
+ggplot(iris, aes(x=Sepal.Length, fill=Species)) +
+  geom_histogram()
+```
+
+<img src="ggplot2_quick_ref_files/figure-gfm/unnamed-chunk-6-1.svg" style="display: block; margin: auto auto auto 0;" />
+
+### Box plots
+
+``` r
+ggplot(iris, aes(x=Sepal.Length, y=Species, fill=Species)) +
+  geom_boxplot()
+```
+
+<img src="ggplot2_quick_ref_files/figure-gfm/unnamed-chunk-7-1.svg" style="display: block; margin: auto auto auto 0;" />
+
+Grouped example of box plots. position defaults to `"dodge2"`.
+
+``` r
+iris %>%
+  pivot_longer(cols = -Species) %>%
+  ggplot(aes(y=value, x=name, fill=Species)) +
+  geom_boxplot() + 
+  labs(y = "cm", x="")
+```
+
+<img src="ggplot2_quick_ref_files/figure-gfm/unnamed-chunk-8-1.svg" style="display: block; margin: auto auto auto 0;" />
+
+### Distributions
+
+D `"fill"`
+
+`kernel` can be set to one of `"gaussian"`, `"rectangular"`,
+`"triangular"`, `"epanechnikov"`, `"biweight"`, `"cosine"` or
+`"optocosine"` with `kernel = "gaussian"` as default.
+
+``` r
+ggplot(iris, aes(x=Sepal.Length, color=Species, fill = Species)) +
+  geom_density(alpha=0.6) +
+  xlim(bounds=c(4, 8.5))
+```
+
+<img src="ggplot2_quick_ref_files/figure-gfm/unnamed-chunk-9-1.svg" style="display: block; margin: auto auto auto 0;" />
+
+For stacked distribution plots or “ridgeline” plots the library
+`ggridges` can be used in ggplot syntax. `scale` determines the maximum
+height of the distribution plots and can be left empty. Plots through
+this method might need some manual scaling of the y axis through
+`scale_y_dicrete()` for the desired result.
+
+``` r
+library(ggridges)
+
+ggplot(iris, aes(x=Sepal.Length, y=Species, color=Species, fill=Species, height=after_stat(density))) +
+  geom_density_ridges(alpha=0.8, scale=0.9, rel_min_height=0.005, stat="density") +
+  theme(legend.position = 'none')  +
+  scale_y_discrete(expand = expansion(add = c(0.2, 1))) +
+  xlim(c(4,8.5))
+```
+
+<img src="ggplot2_quick_ref_files/figure-gfm/unnamed-chunk-10-1.svg" style="display: block; margin: auto auto auto 0;" />
+
+``` r
+ggplot(iris, aes(x=Sepal.Length, fill=Species, color=Species)) +
+  geom_density(show.legend = F, alpha=0.8) + 
+  facet_grid(rows=vars(Species)) +
+  xlim(c(4,8.5))
+```
+
+<img src="ggplot2_quick_ref_files/figure-gfm/unnamed-chunk-11-1.svg" style="display: block; margin: auto auto auto 0;" />
+
+Borrowed example from [The R Graph
+Gallery](https://r-graph-gallery.com/294-basic-ridgeline-plot.html#color)
+with axis flipped. In my opinion, this is a better option than the very
+similar violin plot when many distributions are to be shown in
+comparison to each other.
+
+``` r
+ggplot(lincoln_weather, aes(x = `Mean Temperature [F]`, y = Month, fill = stat(x))) +
+  geom_density_ridges_gradient(scale = 0.95, rel_min_height = 0.01) +
+  scale_fill_viridis_c(name = "Temp. [F]", option = "C") +
+  coord_flip()
+```
+
+<img src="ggplot2_quick_ref_files/figure-gfm/unnamed-chunk-12-1.svg" style="display: block; margin: auto auto auto 0;" />
+
+### Time series
+
+Using the tsibble and feasts libraries, many A Simple plot of a time
+series.
+
+``` r
+# Time series libraries
+library(tsibble)
+library(feasts)
+
+air_pas <-  as_tsibble(AirPassengers)
+
+air_pas %>% 
+  autoplot() + 
+  ylab("Air passengers (in thousands)") + 
+  xlab("") +  
+  ggtitle("Monthly international air passengers 1949-1960")
+```
+
+<img src="ggplot2_quick_ref_files/figure-gfm/unnamed-chunk-13-1.svg" style="display: block; margin: auto auto auto 0;" />
+
+Within the feasts/tsibble framework
+
+``` r
+p_seas <- gg_season(air_pas, labels = "right", labels_repel = TRUE)
+p_sub <- gg_subseries(air_pas)
+
+p_seas / p_sub #plots combined through patchwork (library) 
+```
+
+<img src="ggplot2_quick_ref_files/figure-gfm/unnamed-chunk-14-1.svg" style="display: block; margin: auto auto auto 0;" />
+
+The same follows for a plot of a time series decomposition. Here STL is
+used. The trend and seasonal windows are determined automatically for
+this example.
+
+``` r
+air_pas.stl <- air_pas %>%
+  mutate(value = log(value)) %>% # Log series since seasonality seems multiplicative with trend
+  model(
+    STL(value ~ trend() + season())) # The windows for trend and seasonality are automatically determined for this example
+  
+air_pas.stl %>%
+  components() %>%
+  autoplot() + labs(title = "STL decomposition of log(AirPassengers)")
+```
+
+<img src="ggplot2_quick_ref_files/figure-gfm/unnamed-chunk-15-1.svg" style="display: block; margin: auto auto auto 0;" />
+
+A plot for autocorrelation and partial autocorrelation can easily be
+made from a series. Note that the remainder seems to show some
+heteroscedasticity and as a result probably isn’t stationary.
+
+``` r
+air_pas.stl %>%
+  components() %>%
+  gg_tsdisplay(y = remainder, plot_type = 'partial')
+```
+
+<img src="ggplot2_quick_ref_files/figure-gfm/unnamed-chunk-16-1.svg" style="display: block; margin: auto auto auto 0;" />
+
+Forecasts with accompanying confidence intervals can be displayed and
+estimated with `library(fable)`. Set `level` to change the confidence
+intervals, with `NULL` for no intervals or a list of numbers
+representing the percentages. Defaults to `levels=c(80,95)`.
+
+``` r
+library(fable)
+ts <- tsibbledata::aus_production %>% 
+  select(Electricity) 
+
+fit <- ts %>%
+  model( ARIMA(Electricity), ETS(Electricity))
+
+fit %>% 
+  forecast(h="5 years") %>% 
+  autoplot(ts %>% filter(Quarter > yearquarter("1995 Q1")), level=c(80, 95, 99)) + 
+  facet_grid(rows=vars(.model))
+```
+
+<img src="ggplot2_quick_ref_files/figure-gfm/unnamed-chunk-17-1.svg" style="display: block; margin: auto auto auto 0;" />
+
+## Interactive charts
+
+Plots from ´ggplot2´ can be turned into interactive plots through the
+library [plotly](https://github.com/plotly/plotly.py) usually with the
+ease of “plug and play”. Here are a few examples of some interactive
+charts using the method.
+
+``` r
+library(plotly)
+p <- ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, color=Species, size = Petal.Length )) + 
+  geom_point() +
+  xlab("Sepal length") +
+  ylab("Sepal width")
+
+ggplotly(p)
+```
+
+``` r
+p <- iris %>%
+  pivot_longer(cols = -Species) %>%
+  ggplot(aes(y=value, x=name, fill=Species)) +
+  geom_boxplot(position = position_dodge2(preserve = "single")) + 
+  labs(y = "cm", x="") 
+
+ggplotly(p) %>% 
+  layout(boxmode = "group")
+```
+
+## Theme settings
+
+``` r
+p1 <- ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, color=Species)) + 
+  geom_point(show.legend = F) +
+  xlab("Sepal length") +
+  ylab("Sepal width")
+
+(p1 + theme_gray() + ggtitle("Gray")) +
+(p1 + theme_minimal()+ ggtitle("Minimal")) +
+(p1 + theme_bw()+ ggtitle("Black and white")) +
+(p1 + theme_classic()+ ggtitle("Classic")) +
+(p1 + theme_dark()+ ggtitle("Dark")) +
+(p1 + theme_light()+ ggtitle("Light"))
+```
+
+<img src="ggplot2_quick_ref_files/figure-gfm/unnamed-chunk-20-1.svg" style="display: block; margin: auto auto auto 0;" />
+
+### Colors
+
+Color palettes can be defined through lists default colors supported in
+ggplot2 or through the colors RGB representation. They can also be named
+in cases where matches between specific groups and colors are desired.
+
+``` r
+my_palette1 <- c('purple', 'orange', 'aquamarine3')
+my_palette2 <- c('virginica' = '#FF0000', 'setosa' = '#00FF00', 'versicolor' = '#0000FF') # Fully Red, Green, Blue in RGB notation
+
+p1 <- ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, color=Species)) + 
+  geom_point() +
+  xlab("Sepal length") +
+  ylab("Sepal width") 
+
+(p1 + scale_color_manual(values = my_palette1)) +
+  (p1 + scale_color_manual(values = my_palette2))
+```
+
+<img src="ggplot2_quick_ref_files/figure-gfm/unnamed-chunk-21-1.svg" style="display: block; margin: auto auto auto 0;" />
+
+Here are some examples of color palettes from the [ColorBrewer
+set](https://colorbrewer2.org). These can easily be used with ggplot
+through the function `scale_colour_brewer(palette = "palette name")`.
+Further palettes can be acquired from the R package
+[Paletteer](https://emilhvitfeldt.github.io/paletteer/) which contains
+more than 2000 color palettes, including continuous palettes, and
+functions for simple use with ggplot.
+
+The qualitative colors are useful for distinguishing between different
+groups of data. For example, different flower species in the iris data
+set.
+
+``` r
+library(RColorBrewer)
+display.brewer.all(type='qual')
+```
+
+<img src="ggplot2_quick_ref_files/figure-gfm/unnamed-chunk-22-1.svg" style="display: block; margin: auto auto auto 0;" />
+
+Some examples of sequential colors, useful for ordered data
+visualizations such as heat maps.
+
+``` r
+display.brewer.all(type='seq')
+```
+
+<img src="ggplot2_quick_ref_files/figure-gfm/unnamed-chunk-23-1.svg" style="display: block; margin: auto auto auto 0;" />
+
+The diverging colors diverge in two directions from a central color,
+emphasizing a mid-range value and/or the extremes. Useful for
+comparisons in relation to a chosen value/group or for loose groupings
+of ordered data.
+
+``` r
+display.brewer.all(type='div')
+```
+
+<img src="ggplot2_quick_ref_files/figure-gfm/unnamed-chunk-24-1.svg" style="display: block; margin: auto auto auto 0;" />
