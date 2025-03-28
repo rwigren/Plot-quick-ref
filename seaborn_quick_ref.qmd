@@ -4,7 +4,9 @@ format: html
 jupyter: python3
 ---
 
-# Title1
+# Plots
+[Seaborn](https://seaborn.pydata.org/index.html) is a high level library built on [matplotlib](https://matplotlib.org/) which uses a declarative approach to create plots. Below are some plots and theming to be used as reference. 
+
 
 ```{python}
 import numpy as np
@@ -12,30 +14,34 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-sns.set_theme()
+sns.set_theme() # Sets the default theme for seaborn
+penguins = sns.load_dataset('penguins') # Data set which will be used for most examples
 ```
 
 
+## Scatter plot
 
-
+A simple scatter plot can made through code seen below. `Hue='species'` colors the points after species and groups the data, which is more relevant in other graphs. Labels are set here as an example, but are usually not set in following examples to reduce code clutter.
 
 ```{python}
-penguins = sns.load_dataset('penguins')
+# Plot
 g = sns.scatterplot(penguins, x='bill_length_mm', y='flipper_length_mm', hue='species')
+
+# Labels
 g.set_xlabel('Bill length (mm)')
 g.set_ylabel('Flipper Length (mm)')
-g.legend_.set_title('Penguin species')
+g.set_title('Flipper and bill length of penguins')
 ```
 
 
-
-
+Seaborn has a default function for generatinog a pairplot. See [PairGrid](https://seaborn.pydata.org/generated/seaborn.PairGrid.html) for a more customizable option. 
 ```{python}
 g = sns.pairplot(penguins, hue='species')
 ```
 
 
 ## Bar plot
+Seaborn contains two types of barplots: `countplot()` which fittingly counts entries within categories to determine bar height and `barplot()` which uses an estimator to determine bar height. The default is `estimator='mean'`, however, `'median'`, `'max'`, `'min'` or a callable function (vector -> scalar) can also be used. `barplot()` also supports error bars of 4 different types: `'sd'` (standard deviation of data), `'pi'` (percentile of data), `'se'`(standard error of mean estimate) and `'ci'` (bootstrap confidence intervals). More on these can be seen at https://seaborn.pydata.org/tutorial/error_bars.html.
 
 ::: panel-tabset
 
@@ -54,6 +60,8 @@ sns.move_legend(g, 'lower center', bbox_to_anchor=(0.5,1), ncol=3, frameon=False
 
 ## Histogram
 
+Default position is `'layer'`. Use position `'stack'` for stacked histograms. Change bins with `bins = n` or `binwidth = c`. Bins/binwidth is determined automatically for this example. 
+
 ::: panel-tabset
 
 #### Stack
@@ -70,6 +78,7 @@ g = sns.histplot(penguins, x='bill_length_mm', hue='species')
 
 
 ## Distribution plot
+The `kdeplot()` runs a kernel density estimation using a Gaussian kernel. Smoothing bandwidth can be changed with `bw_method`. Defalts to `multiple='layer'`, but can also be set to `'stack'` or `'fill'`. (one should however be careful and fully aware of what is displayed when using the latter option)
 
 ::: panel-tabset
 
@@ -90,17 +99,18 @@ g = sns.kdeplot(penguins, x='bill_length_mm', hue='species', fill=True, alpha=0.
 :::
 
 
+A faceted plot can be made in two different ways, with similar results. The highlevel functions, such as `displot()`, have faceting built into them. Simply set `row=C1` and/or `col=C2`. `FacetGrid()` can be used in a similar manner, but is first defined as a grid and then mapped to a function.
 
 ::: panel-tabset
 
 #### displot
 ```{python}
-g = sns.displot(penguins, kind='kde', row='species', x='bill_length_mm', hue='species', fill=True, alpha=0.8, height=2, aspect=4)
+g = sns.displot(penguins, kind='kde', row='species', x='bill_length_mm', hue='species', fill=True, height=2, aspect=4)
 ```
 
 #### FacetGrid
 ```{python}
-g = sns.FacetGrid(penguins, row='species', hue='species', margin_titles=True, aspect=4, height=2)
+g = sns.FacetGrid(penguins, row='species', hue='species', margin_titles=True, height=2, aspect=4)
 g.map_dataframe(sns.kdeplot, x="bill_length_mm", fill=True)
 ```
 
@@ -115,6 +125,12 @@ sns.move_legend(g, 'lower center', bbox_to_anchor=(0.5,1), ncol=3, frameon=False
 
 
 ## Themes
+Themes can be set with the `sns.set_theme(style='chosen_theme')`, with the built in options `'darkgrid'` (default), `'dark'`, `'whitegrid'`, `'white'` and `'ticks'`. Pallette and font type can also be set in the function. 
 ```{python}
+im = plt.imread("./images/seaborn_themes.png")
 
+fig, ax = plt.subplots(figsize=(14, 7))
+ax.imshow(im)
+plt.axis('off')
+plt.show()
 ```

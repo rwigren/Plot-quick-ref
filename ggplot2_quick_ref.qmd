@@ -125,7 +125,7 @@ iris %>%
   labs(y = "cm", x="")
 ```
 
-### Distributions
+### Distribution plots
 
 The `geom_density()` function takes data and runs a kernel density estimation. `kernel` can be set to one of `"gaussian"`, `"rectangular"`, `"triangular"`, `"epanechnikov"`, `"biweight"`, `"cosine"` or `"optocosine"` with `kernel = "gaussian"` as default. ... defaults to `position=identity`, other options for this is `stack` which stacks the densities on top of each other and potentially `fill` (one should however be careful and fully aware of what is displayed when using the latter option).
 

@@ -11,6 +11,8 @@ website:
         text: Home
       - href: ggplot2_quick_ref.qmd
         text: ggplot2
+      - href: seaborn_quick_ref.qmd
+        text: Seaborn
 
 format:
   html:
