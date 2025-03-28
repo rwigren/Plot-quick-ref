@@ -1,0 +1,120 @@
+---
+title: "Seaborn quick reference"
+format: html
+jupyter: python3
+---
+
+# Title1
+
+```{python}
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+sns.set_theme()
+```
+
+
+
+
+
+```{python}
+penguins = sns.load_dataset('penguins')
+g = sns.scatterplot(penguins, x='bill_length_mm', y='flipper_length_mm', hue='species')
+g.set_xlabel('Bill length (mm)')
+g.set_ylabel('Flipper Length (mm)')
+g.legend_.set_title('Penguin species')
+```
+
+
+
+
+```{python}
+g = sns.pairplot(penguins, hue='species')
+```
+
+
+## Bar plot
+
+::: panel-tabset
+
+#### countplot()
+```{python}
+g = sns.countplot(penguins, x='species', hue='species')
+```
+
+#### barplot()
+```{python}
+g = sns.barplot(penguins, x='sex', y='bill_length_mm', hue='species')
+sns.move_legend(g, 'lower center', bbox_to_anchor=(0.5,1), ncol=3, frameon=False)
+```
+
+:::
+
+## Histogram
+
+::: panel-tabset
+
+#### Stack
+```{python}
+g = sns.histplot(penguins, x='bill_length_mm', hue='species', multiple='stack')
+```
+
+#### Layer
+```{python}
+g = sns.histplot(penguins, x='bill_length_mm', hue='species')
+```
+
+:::
+
+
+## Distribution plot
+
+::: panel-tabset
+
+#### Layer
+```{python}
+g = sns.kdeplot(penguins, x='bill_length_mm', hue='species', fill=True, alpha=0.6)
+```
+
+#### Stack
+```{python}
+g = sns.kdeplot(penguins, x='bill_length_mm', hue='species', fill=True, alpha=0.8, multiple='stack')
+```
+
+#### Fill
+```{python}
+g = sns.kdeplot(penguins, x='bill_length_mm', hue='species', fill=True, alpha=0.8, multiple='fill')
+```
+:::
+
+
+
+::: panel-tabset
+
+#### displot
+```{python}
+g = sns.displot(penguins, kind='kde', row='species', x='bill_length_mm', hue='species', fill=True, alpha=0.8, height=2, aspect=4)
+```
+
+#### FacetGrid
+```{python}
+g = sns.FacetGrid(penguins, row='species', hue='species', margin_titles=True, aspect=4, height=2)
+g.map_dataframe(sns.kdeplot, x="bill_length_mm", fill=True)
+```
+
+:::
+
+
+## Box plot
+```{python}
+g = sns.boxplot(penguins, x='sex', y='bill_length_mm', hue='species')
+sns.move_legend(g, 'lower center', bbox_to_anchor=(0.5,1), ncol=3, frameon=False)
+```
+
+
+## Themes
+```{python}
+
+```
