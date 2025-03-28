@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.42">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>ggplot2 quick reference – Plot quick reference</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-aa46d88f44b8608d880805adbee39327.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link href="site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+
+<script src="site_libs/plotly-binding-4.10.4/plotly.js"></script>
+
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+
+<script src="site_libs/jquery-3.5.1/jquery.min.js"></script>
+
+<link href="site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+
+<script src="site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+
+<link href="site_libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet">
+
+<script src="site_libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Plot quick reference</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./ggplot2_quick_ref.html" aria-current="page"> 
+<span class="menu-text">ggplot2</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#plots" id="toc-plots" class="nav-link active" data-scroll-target="#plots">Plots</a>
+  <ul class="collapse">
+  <li><a href="#scatter" id="toc-scatter" class="nav-link" data-scroll-target="#scatter">Scatter plots</a></li>
+  <li><a href="#bar" id="toc-bar" class="nav-link" data-scroll-target="#bar">Bar plots</a></li>
+  <li><a href="#histograms" id="toc-histograms" class="nav-link" data-scroll-target="#histograms">Histograms</a></li>
+  <li><a href="#box" id="toc-box" class="nav-link" data-scroll-target="#box">Box plots</a></li>
+  <li><a href="#distributions" id="toc-distributions" class="nav-link" data-scroll-target="#distributions">Distributions</a></li>
+  <li><a href="#ts" id="toc-ts" class="nav-link" data-scroll-target="#ts">Time series</a></li>
+  </ul></li>
+  <li><a href="#interactive-charts" id="toc-interactive-charts" class="nav-link" data-scroll-target="#interactive-charts">Interactive charts</a></li>
+  <li><a href="#theme-settings" id="toc-theme-settings" class="nav-link" data-scroll-target="#theme-settings">Theme settings</a>
+  <ul class="collapse">
+  <li><a href="#colors" id="toc-colors" class="nav-link" data-scroll-target="#colors">Colors</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">ggplot2 quick reference</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<hr>
+<section id="plots" class="level2">
+<h2 class="anchored" data-anchor-id="plots">Plots</h2>
+<p>This document contains plots made in ggplot2 and some information about theming in ggplot2 to use as reference. It is meant mainly to help renew rusty skills, but also as a reference for some less standard plots (eg. time series plots with feats/fable).</p>
+<p>Posit upholds a <a href="https://posit.co/wp-content/uploads/2022/10/data-visualization-1.pdf">cheat sheet</a> for ggplot2, which shows most methods of ggplot2 in a compact manner.</p>
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Library for combining ggplots </span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="scatter" class="level3">
+<h3 class="anchored" data-anchor-id="scatter">Scatter plots</h3>
+<p>You can separate data on <code>color</code>, <code>shape</code> and <code>size</code>. <code>position="jitter"</code> and <code>alpha</code> can be used to make plots more readable when many data points are present.</p>
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x=</span>Sepal.Length, <span class="at">y=</span>Sepal.Width, <span class="at">color=</span>Species)) <span class="sc">+</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Sepal length"</span>) <span class="sc">+</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Sepal width"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="ggplot2_quick_ref_files/figure-html/unnamed-chunk-2-1.svg" class="img-fluid quarto-figure quarto-figure-left figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>A pair-wise plot can quite easily be made with the library <a href="https://ggobi.github.io/ggally/">GGally</a>. The diagonal and the upper and lower triangle each have a default plot type for continuous, discrete and combo (discrete on one axis and continuous on the other). These can be changed in the method, see <code>ggpairs()</code> documentation for more information.</p>
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(iris, <span class="at">columns =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="fu">aes</span>(<span class="at">color=</span>Species, <span class="at">fill=</span>Species),</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">diag =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">"densityDiag"</span>, <span class="at">alpha=</span><span class="fl">0.6</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="ggplot2_quick_ref_files/figure-html/unnamed-chunk-3-1.svg" class="img-fluid quarto-figure quarto-figure-left figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="bar" class="level3">
+<h3 class="anchored" data-anchor-id="bar">Bar plots</h3>
+<p>Bar plots can be used either through <code>geom_bar()</code>, which counts the number of instances of each group of x or y, or through <code>geom_col()</code> which takes the height/length of the bars.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">geom_bar()</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">geom_col()</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">%&gt;%</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Sepal.Length <span class="sc">&gt;</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Species, <span class="at">fill=</span>Species)) <span class="sc">+</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Flowers with sepal length &gt; 5cm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="ggplot2_quick_ref_files/figure-html/unnamed-chunk-4-1.svg" class="img-fluid quarto-figure quarto-figure-left figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">%&gt;%</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Species) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_all</span>(mean) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>Species, <span class="at">values_to =</span> <span class="st">"Mean"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>name, <span class="at">y=</span>Mean, <span class="at">fill=</span>Species)) <span class="sc">+</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">"dodge2"</span>) <span class="sc">+</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="ggplot2_quick_ref_files/figure-html/unnamed-chunk-5-1.svg" class="img-fluid quarto-figure quarto-figure-left figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="histograms" class="level3 tabset">
+<h3 class="tabset anchored" data-anchor-id="histograms">Histograms</h3>
+<p>Default position is <code>"stack"</code>. Use position <code>"identity"</code> for overlapping histograms. Bins/binwidth is determined automatically for this example. Change bins with <code>bins = n</code> or <code>binwidth = c</code>.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Stack</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Identity</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x=</span>Sepal.Length, <span class="at">fill=</span>Species)) <span class="sc">+</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="ggplot2_quick_ref_files/figure-html/unnamed-chunk-6-1.svg" class="img-fluid quarto-figure quarto-figure-left figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x=</span>Sepal.Length, <span class="at">fill=</span>Species)) <span class="sc">+</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">position=</span><span class="st">"identity"</span>, <span class="at">alpha=</span><span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="ggplot2_quick_ref_files/figure-html/unnamed-chunk-7-1.svg" class="img-fluid quarto-figure quarto-figure-left figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="box" class="level3">
+<h3 class="anchored" data-anchor-id="box">Box plots</h3>
+<p>Boxplots are straight forward to generate. Below you can see two examples. Interquartile range can be changed through <code>coef</code> which defaults to 1.5.</p>
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x=</span>Sepal.Length, <span class="at">y=</span>Species, <span class="at">fill=</span>Species)) <span class="sc">+</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="ggplot2_quick_ref_files/figure-html/unnamed-chunk-8-1.svg" class="img-fluid quarto-figure quarto-figure-left figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Grouped example of box plots. Position defaults to <code>"dodge2"</code>.</p>
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>Species) <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>value, <span class="at">x=</span>name, <span class="at">fill=</span>Species)) <span class="sc">+</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"cm"</span>, <span class="at">x=</span><span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="ggplot2_quick_ref_files/figure-html/unnamed-chunk-9-1.svg" class="img-fluid quarto-figure quarto-figure-left figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="distributions" class="level3">
+<h3 class="anchored" data-anchor-id="distributions">Distributions</h3>
+<p>The <code>geom_density()</code> function takes data and runs a kernel density estimation. <code>kernel</code> can be set to one of <code>"gaussian"</code>, <code>"rectangular"</code>, <code>"triangular"</code>, <code>"epanechnikov"</code>, <code>"biweight"</code>, <code>"cosine"</code> or <code>"optocosine"</code> with <code>kernel = "gaussian"</code> as default. … defaults to <code>position=identity</code>, other options for this is <code>stack</code> which stacks the densities on top of each other and potentially <code>fill</code> (one should however be careful and fully aware of what is displayed when using the latter option).</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Identity</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Stack</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x=</span>Sepal.Length, <span class="at">color=</span>Species, <span class="at">fill =</span> Species)) <span class="sc">+</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha=</span><span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="at">bounds=</span><span class="fu">c</span>(<span class="dv">4</span>, <span class="fl">8.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="ggplot2_quick_ref_files/figure-html/unnamed-chunk-10-1.svg" class="img-fluid quarto-figure quarto-figure-left figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x=</span>Sepal.Length, <span class="at">color=</span>Species, <span class="at">fill =</span> Species)) <span class="sc">+</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">position=</span><span class="st">"stack"</span>, <span class="at">alpha=</span><span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="at">bounds=</span><span class="fu">c</span>(<span class="dv">4</span>, <span class="fl">8.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="ggplot2_quick_ref_files/figure-html/unnamed-chunk-11-1.svg" class="img-fluid quarto-figure quarto-figure-left figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>For separated distribution plots we can use <code>facet_grid()</code>, which creates a grid according to given rules of data. Given data frame column names C1 and C2 the data can be faceted according to: <code>C1 ~ .</code> for rows, <code>. ~ C1</code> for columns and <code>C1 ~ C2</code> for a grid. <code>rows=vars(C1)</code> and <code>cols=vars(C2)</code> can be used instead.</p>
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x=</span>Sepal.Length, <span class="at">fill=</span>Species, <span class="at">color=</span>Species)) <span class="sc">+</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">show.legend =</span> F, <span class="at">alpha=</span><span class="fl">0.8</span>) <span class="sc">+</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(Species <span class="sc">~</span> .) <span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="fu">c</span>(<span class="dv">4</span>,<span class="fl">8.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="ggplot2_quick_ref_files/figure-html/unnamed-chunk-12-1.svg" class="img-fluid quarto-figure quarto-figure-left figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Borrowed example from <a href="https://r-graph-gallery.com/294-basic-ridgeline-plot.html#color">The R Graph Gallery</a> with axis flipped. In my opinion, this is a better option than the very similar violin plot when many distributions are to be shown in comparison to each other. Note that this uses the library <a href="https://github.com/wilkelab/ggridges">ggridges</a> to create a “ridgeline plot” (faceted distribution plot with height able to overlap the above distribution). More information on these might be added later.</p>
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggridges)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(lincoln_weather, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Mean Temperature [F]</span><span class="st">`</span>, <span class="at">y =</span> Month, <span class="at">fill =</span> <span class="fu">stat</span>(x))) <span class="sc">+</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density_ridges_gradient</span>(<span class="at">scale =</span> <span class="fl">0.95</span>, <span class="at">rel_min_height =</span> <span class="fl">0.01</span>) <span class="sc">+</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_c</span>(<span class="at">name =</span> <span class="st">"Temp. [F]"</span>, <span class="at">option =</span> <span class="st">"C"</span>) <span class="sc">+</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="ggplot2_quick_ref_files/figure-html/unnamed-chunk-13-1.svg" class="img-fluid quarto-figure quarto-figure-left figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="ts" class="level3">
+<h3 class="anchored" data-anchor-id="ts">Time series</h3>
+<p>Using the <a href="https://tsibble.tidyverts.org/">tsibble</a> and <a href="https://feasts.tidyverts.org/">feasts</a> libraries, many plots related to time series analysis can easily be created. Below is an example of a plot of a time series.</p>
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Time series libraries</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tsibble)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(feasts)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>air_pas <span class="ot">&lt;-</span>  <span class="fu">as_tsibble</span>(AirPassengers)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>air_pas <span class="sc">%&gt;%</span> </span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>() <span class="sc">+</span> </span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Air passengers (in thousands)"</span>) <span class="sc">+</span> </span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">""</span>) <span class="sc">+</span>  </span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Monthly international air passengers 1949-1960"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="ggplot2_quick_ref_files/figure-html/unnamed-chunk-14-1.svg" class="img-fluid quarto-figure quarto-figure-left figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Two useful plots for inspecting seasonal changes can be seen below.</p>
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>p_seas <span class="ot">&lt;-</span> <span class="fu">gg_season</span>(air_pas, <span class="at">labels =</span> <span class="st">"right"</span>, <span class="at">labels_repel =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>p_sub <span class="ot">&lt;-</span> <span class="fu">gg_subseries</span>(air_pas)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>p_seas <span class="sc">/</span> p_sub <span class="co">#plots combined through patchwork (library) </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="ggplot2_quick_ref_files/figure-html/unnamed-chunk-15-1.svg" class="img-fluid quarto-figure quarto-figure-left figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>A plot of a time series decomposition can also be displayed as follows. Here STL is used. The trend and seasonal windows are determined automatically for this example.</p>
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>air_pas.stl <span class="ot">&lt;-</span> air_pas <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">value =</span> <span class="fu">log</span>(value)) <span class="sc">%&gt;%</span> <span class="co"># Log series since seasonality seems multiplicative with trend</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">model</span>(</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">STL</span>(value <span class="sc">~</span> <span class="fu">trend</span>() <span class="sc">+</span> <span class="fu">season</span>())) <span class="co"># The windows for trend and seasonality are automatically determined for this example</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>air_pas.stl <span class="sc">%&gt;%</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">components</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"STL decomposition of log(AirPassengers)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="ggplot2_quick_ref_files/figure-html/unnamed-chunk-16-1.svg" class="img-fluid quarto-figure quarto-figure-left figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>A plot for autocorrelation and partial autocorrelation can easily be made from a series. Note that the remainder seems to show some heteroscedasticity and as a result probably isn’t stationary.</p>
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>air_pas.stl <span class="sc">%&gt;%</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">components</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gg_tsdisplay</span>(<span class="at">y =</span> remainder, <span class="at">plot_type =</span> <span class="st">'partial'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="ggplot2_quick_ref_files/figure-html/unnamed-chunk-17-1.svg" class="img-fluid quarto-figure quarto-figure-left figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Forecasts with accompanying confidence intervals can be displayed and estimated with the library <a href="https://fable.tidyverts.org/">fable</a>. Set <code>level</code> to change the confidence intervals, with <code>NULL</code> for no intervals or a list of numbers representing the percentages. Defaults to <code>levels=c(80,95)</code>.</p>
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fable)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>ts <span class="ot">&lt;-</span> tsibbledata<span class="sc">::</span>aus_production <span class="sc">%&gt;%</span> </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Electricity) </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> ts <span class="sc">%&gt;%</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">model</span>( <span class="fu">ARIMA</span>(Electricity), <span class="fu">ETS</span>(Electricity))</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>fit <span class="sc">%&gt;%</span> </span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">forecast</span>(<span class="at">h=</span><span class="st">"5 years"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>(ts <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Quarter <span class="sc">&gt;</span> <span class="fu">yearquarter</span>(<span class="st">"1995 Q1"</span>)), <span class="at">level=</span><span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">95</span>, <span class="dv">99</span>)) <span class="sc">+</span> </span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(.model <span class="sc">~</span> .)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="ggplot2_quick_ref_files/figure-html/unnamed-chunk-18-1.svg" class="img-fluid quarto-figure quarto-figure-left figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="interactive-charts" class="level2">
+<h2 class="anchored" data-anchor-id="interactive-charts">Interactive charts</h2>
+<p>Plots from ´ggplot2´ can be turned into interactive plots through the library <a href="https://github.com/plotly/plotly.py">plotly</a>, usually with the ease of “plug and play”. Here are a few examples of some interactive charts using the method.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">Scatter plot</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Box plot</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-3" role="tab" aria-controls="tabset-4-3" aria-selected="false">Histogram</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x=</span>Sepal.Length, <span class="at">y=</span>Sepal.Width, <span class="at">color=</span>Species, <span class="at">size =</span> Petal.Length )) <span class="sc">+</span> </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Sepal length"</span>) <span class="sc">+</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Sepal width"</span>)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplotly</span>(p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-3cce6c6a3f0320d23b75" style="width:100%;height:487px;"></div>
+<script type="application/json" data-for="htmlwidget-3cce6c6a3f0320d23b75">{"x":{"data":[{"x":[5.0999999999999996,4.9000000000000004,4.7000000000000002,4.5999999999999996,5,5.4000000000000004,4.5999999999999996,5,4.4000000000000004,4.9000000000000004,5.4000000000000004,4.7999999999999998,4.7999999999999998,4.2999999999999998,5.7999999999999998,5.7000000000000002,5.4000000000000004,5.0999999999999996,5.7000000000000002,5.0999999999999996,5.4000000000000004,5.0999999999999996,4.5999999999999996,5.0999999999999996,4.7999999999999998,5,5,5.2000000000000002,5.2000000000000002,4.7000000000000002,4.7999999999999998,5.4000000000000004,5.2000000000000002,5.5,4.9000000000000004,5,5.5,4.9000000000000004,4.4000000000000004,5.0999999999999996,5,4.5,4.4000000000000004,5,5.0999999999999996,4.7999999999999998,5.0999999999999996,4.5999999999999996,5.2999999999999998,5],"y":[3.5,3,3.2000000000000002,3.1000000000000001,3.6000000000000001,3.8999999999999999,3.3999999999999999,3.3999999999999999,2.8999999999999999,3.1000000000000001,3.7000000000000002,3.3999999999999999,3,3,4,4.4000000000000004,3.8999999999999999,3.5,3.7999999999999998,3.7999999999999998,3.3999999999999999,3.7000000000000002,3.6000000000000001,3.2999999999999998,3.3999999999999999,3,3.3999999999999999,3.5,3.3999999999999999,3.2000000000000002,3.1000000000000001,3.3999999999999999,4.0999999999999996,4.2000000000000002,3.1000000000000001,3.2000000000000002,3.5,3.6000000000000001,3,3.3999999999999999,3.5,2.2999999999999998,3.2000000000000002,3.5,3.7999999999999998,3,3.7999999999999998,3.2000000000000002,3.7000000000000002,3.2999999999999998],"text":["Sepal.Length: 5.1<br />Sepal.Width: 3.5<br />Species: setosa<br />Petal.Length: 1.4","Sepal.Length: 4.9<br />Sepal.Width: 3.0<br />Species: setosa<br />Petal.Length: 1.4","Sepal.Length: 4.7<br />Sepal.Width: 3.2<br />Species: setosa<br />Petal.Length: 1.3","Sepal.Length: 4.6<br />Sepal.Width: 3.1<br />Species: setosa<br />Petal.Length: 1.5","Sepal.Length: 5.0<br />Sepal.Width: 3.6<br />Species: setosa<br />Petal.Length: 1.4","Sepal.Length: 5.4<br />Sepal.Width: 3.9<br />Species: setosa<br />Petal.Length: 1.7","Sepal.Length: 4.6<br />Sepal.Width: 3.4<br />Species: setosa<br />Petal.Length: 1.4","Sepal.Length: 5.0<br />Sepal.Width: 3.4<br />Species: setosa<br />Petal.Length: 1.5","Sepal.Length: 4.4<br />Sepal.Width: 2.9<br />Species: setosa<br />Petal.Length: 1.4","Sepal.Length: 4.9<br />Sepal.Width: 3.1<br />Species: setosa<br />Petal.Length: 1.5","Sepal.Length: 5.4<br />Sepal.Width: 3.7<br />Species: setosa<br />Petal.Length: 1.5","Sepal.Length: 4.8<br />Sepal.Width: 3.4<br />Species: setosa<br />Petal.Length: 1.6","Sepal.Length: 4.8<br />Sepal.Width: 3.0<br />Species: setosa<br />Petal.Length: 1.4","Sepal.Length: 4.3<br />Sepal.Width: 3.0<br />Species: setosa<br />Petal.Length: 1.1","Sepal.Length: 5.8<br />Sepal.Width: 4.0<br />Species: setosa<br />Petal.Length: 1.2","Sepal.Length: 5.7<br />Sepal.Width: 4.4<br />Species: setosa<br />Petal.Length: 1.5","Sepal.Length: 5.4<br />Sepal.Width: 3.9<br />Species: setosa<br />Petal.Length: 1.3","Sepal.Length: 5.1<br />Sepal.Width: 3.5<br />Species: setosa<br />Petal.Length: 1.4","Sepal.Length: 5.7<br />Sepal.Width: 3.8<br />Species: setosa<br />Petal.Length: 1.7","Sepal.Length: 5.1<br />Sepal.Width: 3.8<br />Species: setosa<br />Petal.Length: 1.5","Sepal.Length: 5.4<br />Sepal.Width: 3.4<br />Species: setosa<br />Petal.Length: 1.7","Sepal.Length: 5.1<br />Sepal.Width: 3.7<br />Species: setosa<br />Petal.Length: 1.5","Sepal.Length: 4.6<br />Sepal.Width: 3.6<br />Species: setosa<br />Petal.Length: 1.0","Sepal.Length: 5.1<br />Sepal.Width: 3.3<br />Species: setosa<br />Petal.Length: 1.7","Sepal.Length: 4.8<br />Sepal.Width: 3.4<br />Species: setosa<br />Petal.Length: 1.9","Sepal.Length: 5.0<br />Sepal.Width: 3.0<br />Species: setosa<br />Petal.Length: 1.6","Sepal.Length: 5.0<br />Sepal.Width: 3.4<br />Species: setosa<br />Petal.Length: 1.6","Sepal.Length: 5.2<br />Sepal.Width: 3.5<br />Species: setosa<br />Petal.Length: 1.5","Sepal.Length: 5.2<br />Sepal.Width: 3.4<br />Species: setosa<br />Petal.Length: 1.4","Sepal.Length: 4.7<br />Sepal.Width: 3.2<br />Species: setosa<br />Petal.Length: 1.6","Sepal.Length: 4.8<br />Sepal.Width: 3.1<br />Species: setosa<br />Petal.Length: 1.6","Sepal.Length: 5.4<br />Sepal.Width: 3.4<br />Species: setosa<br />Petal.Length: 1.5","Sepal.Length: 5.2<br />Sepal.Width: 4.1<br />Species: setosa<br />Petal.Length: 1.5","Sepal.Length: 5.5<br />Sepal.Width: 4.2<br />Species: setosa<br />Petal.Length: 1.4","Sepal.Length: 4.9<br />Sepal.Width: 3.1<br />Species: setosa<br />Petal.Length: 1.5","Sepal.Length: 5.0<br />Sepal.Width: 3.2<br />Species: setosa<br />Petal.Length: 1.2","Sepal.Length: 5.5<br />Sepal.Width: 3.5<br />Species: setosa<br />Petal.Length: 1.3","Sepal.Length: 4.9<br />Sepal.Width: 3.6<br />Species: setosa<br />Petal.Length: 1.4","Sepal.Length: 4.4<br />Sepal.Width: 3.0<br />Species: setosa<br />Petal.Length: 1.3","Sepal.Length: 5.1<br />Sepal.Width: 3.4<br />Species: setosa<br />Petal.Length: 1.5","Sepal.Length: 5.0<br />Sepal.Width: 3.5<br />Species: setosa<br />Petal.Length: 1.3","Sepal.Length: 4.5<br />Sepal.Width: 2.3<br />Species: setosa<br />Petal.Length: 1.3","Sepal.Length: 4.4<br />Sepal.Width: 3.2<br />Species: setosa<br />Petal.Length: 1.3","Sepal.Length: 5.0<br />Sepal.Width: 3.5<br />Species: setosa<br />Petal.Length: 1.6","Sepal.Length: 5.1<br />Sepal.Width: 3.8<br />Species: setosa<br />Petal.Length: 1.9","Sepal.Length: 4.8<br />Sepal.Width: 3.0<br />Species: setosa<br />Petal.Length: 1.4","Sepal.Length: 5.1<br />Sepal.Width: 3.8<br />Species: setosa<br />Petal.Length: 1.6","Sepal.Length: 4.6<br />Sepal.Width: 3.2<br />Species: setosa<br />Petal.Length: 1.4","Sepal.Length: 5.3<br />Sepal.Width: 3.7<br />Species: setosa<br />Petal.Length: 1.5","Sepal.Length: 5.0<br />Sepal.Width: 3.3<br />Species: setosa<br />Petal.Length: 1.4"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(248,118,109,1)","opacity":1,"size":[8.7000533284090924,8.7000533284090924,8.0408278752916278,9.2808426117125862,8.7000533284090924,10.288771311752807,8.7000533284090924,9.2808426117125862,8.7000533284090924,9.2808426117125862,9.2808426117125862,9.805916259621549,8.7000533284090924,6.2397904437321055,7.258864697568467,9.2808426117125862,8.0408278752916278,8.7000533284090924,10.288771311752807,9.2808426117125862,10.288771311752807,9.2808426117125862,3.7795275590551185,10.288771311752807,11.160316213086078,9.805916259621549,9.805916259621549,9.2808426117125862,8.7000533284090924,9.805916259621549,9.805916259621549,9.2808426117125862,9.2808426117125862,8.7000533284090924,9.2808426117125862,7.258864697568467,8.0408278752916278,8.7000533284090924,8.0408278752916278,9.2808426117125862,8.0408278752916278,8.0408278752916278,8.0408278752916278,9.805916259621549,11.160316213086078,8.7000533284090924,9.805916259621549,8.7000533284090924,9.2808426117125862,8.7000533284090924],"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(248,118,109,1)"}},"hoveron":"points","name":"setosa","legendgroup":"setosa","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[7,6.4000000000000004,6.9000000000000004,5.5,6.5,5.7000000000000002,6.2999999999999998,4.9000000000000004,6.5999999999999996,5.2000000000000002,5,5.9000000000000004,6,6.0999999999999996,5.5999999999999996,6.7000000000000002,5.5999999999999996,5.7999999999999998,6.2000000000000002,5.5999999999999996,5.9000000000000004,6.0999999999999996,6.2999999999999998,6.0999999999999996,6.4000000000000004,6.5999999999999996,6.7999999999999998,6.7000000000000002,6,5.7000000000000002,5.5,5.5,5.7999999999999998,6,5.4000000000000004,6,6.7000000000000002,6.2999999999999998,5.5999999999999996,5.5,5.5,6.0999999999999996,5.7999999999999998,5,5.5999999999999996,5.7000000000000002,5.7000000000000002,6.2000000000000002,5.0999999999999996,5.7000000000000002],"y":[3.2000000000000002,3.2000000000000002,3.1000000000000001,2.2999999999999998,2.7999999999999998,2.7999999999999998,3.2999999999999998,2.3999999999999999,2.8999999999999999,2.7000000000000002,2,3,2.2000000000000002,2.8999999999999999,2.8999999999999999,3.1000000000000001,3,2.7000000000000002,2.2000000000000002,2.5,3.2000000000000002,2.7999999999999998,2.5,2.7999999999999998,2.8999999999999999,3,2.7999999999999998,3,2.8999999999999999,2.6000000000000001,2.3999999999999999,2.3999999999999999,2.7000000000000002,2.7000000000000002,3,3.3999999999999999,3.1000000000000001,2.2999999999999998,3,2.5,2.6000000000000001,3,2.6000000000000001,2.2999999999999998,2.7000000000000002,3,2.8999999999999999,2.8999999999999999,2.5,2.7999999999999998],"text":["Sepal.Length: 7.0<br />Sepal.Width: 3.2<br />Species: versicolor<br />Petal.Length: 4.7","Sepal.Length: 6.4<br />Sepal.Width: 3.2<br />Species: versicolor<br />Petal.Length: 4.5","Sepal.Length: 6.9<br />Sepal.Width: 3.1<br />Species: versicolor<br />Petal.Length: 4.9","Sepal.Length: 5.5<br />Sepal.Width: 2.3<br />Species: versicolor<br />Petal.Length: 4.0","Sepal.Length: 6.5<br />Sepal.Width: 2.8<br />Species: versicolor<br />Petal.Length: 4.6","Sepal.Length: 5.7<br />Sepal.Width: 2.8<br />Species: versicolor<br />Petal.Length: 4.5","Sepal.Length: 6.3<br />Sepal.Width: 3.3<br />Species: versicolor<br />Petal.Length: 4.7","Sepal.Length: 4.9<br />Sepal.Width: 2.4<br />Species: versicolor<br />Petal.Length: 3.3","Sepal.Length: 6.6<br />Sepal.Width: 2.9<br />Species: versicolor<br />Petal.Length: 4.6","Sepal.Length: 5.2<br />Sepal.Width: 2.7<br />Species: versicolor<br />Petal.Length: 3.9","Sepal.Length: 5.0<br />Sepal.Width: 2.0<br />Species: versicolor<br />Petal.Length: 3.5","Sepal.Length: 5.9<br />Sepal.Width: 3.0<br />Species: versicolor<br />Petal.Length: 4.2","Sepal.Length: 6.0<br />Sepal.Width: 2.2<br />Species: versicolor<br />Petal.Length: 4.0","Sepal.Length: 6.1<br />Sepal.Width: 2.9<br />Species: versicolor<br />Petal.Length: 4.7","Sepal.Length: 5.6<br />Sepal.Width: 2.9<br />Species: versicolor<br />Petal.Length: 3.6","Sepal.Length: 6.7<br />Sepal.Width: 3.1<br />Species: versicolor<br />Petal.Length: 4.4","Sepal.Length: 5.6<br />Sepal.Width: 3.0<br />Species: versicolor<br />Petal.Length: 4.5","Sepal.Length: 5.8<br />Sepal.Width: 2.7<br />Species: versicolor<br />Petal.Length: 4.1","Sepal.Length: 6.2<br />Sepal.Width: 2.2<br />Species: versicolor<br />Petal.Length: 4.5","Sepal.Length: 5.6<br />Sepal.Width: 2.5<br />Species: versicolor<br />Petal.Length: 3.9","Sepal.Length: 5.9<br />Sepal.Width: 3.2<br />Species: versicolor<br />Petal.Length: 4.8","Sepal.Length: 6.1<br />Sepal.Width: 2.8<br />Species: versicolor<br />Petal.Length: 4.0","Sepal.Length: 6.3<br />Sepal.Width: 2.5<br />Species: versicolor<br />Petal.Length: 4.9","Sepal.Length: 6.1<br />Sepal.Width: 2.8<br />Species: versicolor<br />Petal.Length: 4.7","Sepal.Length: 6.4<br />Sepal.Width: 2.9<br />Species: versicolor<br />Petal.Length: 4.3","Sepal.Length: 6.6<br />Sepal.Width: 3.0<br />Species: versicolor<br />Petal.Length: 4.4","Sepal.Length: 6.8<br />Sepal.Width: 2.8<br />Species: versicolor<br />Petal.Length: 4.8","Sepal.Length: 6.7<br />Sepal.Width: 3.0<br />Species: versicolor<br />Petal.Length: 5.0","Sepal.Length: 6.0<br />Sepal.Width: 2.9<br />Species: versicolor<br />Petal.Length: 4.5","Sepal.Length: 5.7<br />Sepal.Width: 2.6<br />Species: versicolor<br />Petal.Length: 3.5","Sepal.Length: 5.5<br />Sepal.Width: 2.4<br />Species: versicolor<br />Petal.Length: 3.8","Sepal.Length: 5.5<br />Sepal.Width: 2.4<br />Species: versicolor<br />Petal.Length: 3.7","Sepal.Length: 5.8<br />Sepal.Width: 2.7<br />Species: versicolor<br />Petal.Length: 3.9","Sepal.Length: 6.0<br />Sepal.Width: 2.7<br />Species: versicolor<br />Petal.Length: 5.1","Sepal.Length: 5.4<br />Sepal.Width: 3.0<br />Species: versicolor<br />Petal.Length: 4.5","Sepal.Length: 6.0<br />Sepal.Width: 3.4<br />Species: versicolor<br />Petal.Length: 4.5","Sepal.Length: 6.7<br />Sepal.Width: 3.1<br />Species: versicolor<br />Petal.Length: 4.7","Sepal.Length: 6.3<br />Sepal.Width: 2.3<br />Species: versicolor<br />Petal.Length: 4.4","Sepal.Length: 5.6<br />Sepal.Width: 3.0<br />Species: versicolor<br />Petal.Length: 4.1","Sepal.Length: 5.5<br />Sepal.Width: 2.5<br />Species: versicolor<br />Petal.Length: 4.0","Sepal.Length: 5.5<br />Sepal.Width: 2.6<br />Species: versicolor<br />Petal.Length: 4.4","Sepal.Length: 6.1<br />Sepal.Width: 3.0<br />Species: versicolor<br />Petal.Length: 4.6","Sepal.Length: 5.8<br />Sepal.Width: 2.6<br />Species: versicolor<br />Petal.Length: 4.0","Sepal.Length: 5.0<br />Sepal.Width: 2.3<br />Species: versicolor<br />Petal.Length: 3.3","Sepal.Length: 5.6<br />Sepal.Width: 2.7<br />Species: versicolor<br />Petal.Length: 4.2","Sepal.Length: 5.7<br />Sepal.Width: 3.0<br />Species: versicolor<br />Petal.Length: 4.2","Sepal.Length: 5.7<br />Sepal.Width: 2.9<br />Species: versicolor<br />Petal.Length: 4.2","Sepal.Length: 6.2<br />Sepal.Width: 2.9<br />Species: versicolor<br />Petal.Length: 4.3","Sepal.Length: 5.1<br />Sepal.Width: 2.5<br />Species: versicolor<br />Petal.Length: 3.0","Sepal.Length: 5.7<br />Sepal.Width: 2.8<br />Species: versicolor<br />Petal.Length: 4.1"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,186,56,1)","opacity":1,"size":[18.7447224486517,18.334639072202979,19.143864349396768,17.254942352358285,18.541104867117038,18.334639072202979,18.7447224486517,15.578533857025294,18.541104867117038,17.02844866191684,16.080841982440049,17.696876113108512,17.254942352358285,18.7447224486517,16.324456016591146,18.125202088279956,18.334639072202979,17.477691571553027,18.334639072202979,17.02844866191684,18.94560653634278,17.254942352358285,19.143864349396768,18.7447224486517,17.91266182703443,18.125202088279956,18.94560653634278,19.339596275766016,18.334639072202979,16.080841982440049,16.798015064450496,16.563428507764648,17.02844866191684,19.532896466386788,18.334639072202979,18.334639072202979,18.7447224486517,18.125202088279956,17.477691571553027,17.254942352358285,18.125202088279956,18.541104867117038,17.254942352358285,15.578533857025294,17.696876113108512,17.696876113108512,17.696876113108512,17.91266182703443,14.782157664370054,17.477691571553027],"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,186,56,1)"}},"hoveron":"points","name":"versicolor","legendgroup":"versicolor","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[6.2999999999999998,5.7999999999999998,7.0999999999999996,6.2999999999999998,6.5,7.5999999999999996,4.9000000000000004,7.2999999999999998,6.7000000000000002,7.2000000000000002,6.5,6.4000000000000004,6.7999999999999998,5.7000000000000002,5.7999999999999998,6.4000000000000004,6.5,7.7000000000000002,7.7000000000000002,6,6.9000000000000004,5.5999999999999996,7.7000000000000002,6.2999999999999998,6.7000000000000002,7.2000000000000002,6.2000000000000002,6.0999999999999996,6.4000000000000004,7.2000000000000002,7.4000000000000004,7.9000000000000004,6.4000000000000004,6.2999999999999998,6.0999999999999996,7.7000000000000002,6.2999999999999998,6.4000000000000004,6,6.9000000000000004,6.7000000000000002,6.9000000000000004,5.7999999999999998,6.7999999999999998,6.7000000000000002,6.7000000000000002,6.2999999999999998,6.5,6.2000000000000002,5.9000000000000004],"y":[3.2999999999999998,2.7000000000000002,3,2.8999999999999999,3,3,2.5,2.8999999999999999,2.5,3.6000000000000001,3.2000000000000002,2.7000000000000002,3,2.5,2.7999999999999998,3.2000000000000002,3,3.7999999999999998,2.6000000000000001,2.2000000000000002,3.2000000000000002,2.7999999999999998,2.7999999999999998,2.7000000000000002,3.2999999999999998,3.2000000000000002,2.7999999999999998,3,2.7999999999999998,3,2.7999999999999998,3.7999999999999998,2.7999999999999998,2.7999999999999998,2.6000000000000001,3,3.3999999999999999,3.1000000000000001,3,3.1000000000000001,3.1000000000000001,3.1000000000000001,2.7000000000000002,3.2000000000000002,3.2999999999999998,3,2.5,3,3.3999999999999999,3],"text":["Sepal.Length: 6.3<br />Sepal.Width: 3.3<br />Species: virginica<br />Petal.Length: 6.0","Sepal.Length: 5.8<br />Sepal.Width: 2.7<br />Species: virginica<br />Petal.Length: 5.1","Sepal.Length: 7.1<br />Sepal.Width: 3.0<br />Species: virginica<br />Petal.Length: 5.9","Sepal.Length: 6.3<br />Sepal.Width: 2.9<br />Species: virginica<br />Petal.Length: 5.6","Sepal.Length: 6.5<br />Sepal.Width: 3.0<br />Species: virginica<br />Petal.Length: 5.8","Sepal.Length: 7.6<br />Sepal.Width: 3.0<br />Species: virginica<br />Petal.Length: 6.6","Sepal.Length: 4.9<br />Sepal.Width: 2.5<br />Species: virginica<br />Petal.Length: 4.5","Sepal.Length: 7.3<br />Sepal.Width: 2.9<br />Species: virginica<br />Petal.Length: 6.3","Sepal.Length: 6.7<br />Sepal.Width: 2.5<br />Species: virginica<br />Petal.Length: 5.8","Sepal.Length: 7.2<br />Sepal.Width: 3.6<br />Species: virginica<br />Petal.Length: 6.1","Sepal.Length: 6.5<br />Sepal.Width: 3.2<br />Species: virginica<br />Petal.Length: 5.1","Sepal.Length: 6.4<br />Sepal.Width: 2.7<br />Species: virginica<br />Petal.Length: 5.3","Sepal.Length: 6.8<br />Sepal.Width: 3.0<br />Species: virginica<br />Petal.Length: 5.5","Sepal.Length: 5.7<br />Sepal.Width: 2.5<br />Species: virginica<br />Petal.Length: 5.0","Sepal.Length: 5.8<br />Sepal.Width: 2.8<br />Species: virginica<br />Petal.Length: 5.1","Sepal.Length: 6.4<br />Sepal.Width: 3.2<br />Species: virginica<br />Petal.Length: 5.3","Sepal.Length: 6.5<br />Sepal.Width: 3.0<br />Species: virginica<br />Petal.Length: 5.5","Sepal.Length: 7.7<br />Sepal.Width: 3.8<br />Species: virginica<br />Petal.Length: 6.7","Sepal.Length: 7.7<br />Sepal.Width: 2.6<br />Species: virginica<br />Petal.Length: 6.9","Sepal.Length: 6.0<br />Sepal.Width: 2.2<br />Species: virginica<br />Petal.Length: 5.0","Sepal.Length: 6.9<br />Sepal.Width: 3.2<br />Species: virginica<br />Petal.Length: 5.7","Sepal.Length: 5.6<br />Sepal.Width: 2.8<br />Species: virginica<br />Petal.Length: 4.9","Sepal.Length: 7.7<br />Sepal.Width: 2.8<br />Species: virginica<br />Petal.Length: 6.7","Sepal.Length: 6.3<br />Sepal.Width: 2.7<br />Species: virginica<br />Petal.Length: 4.9","Sepal.Length: 6.7<br />Sepal.Width: 3.3<br />Species: virginica<br />Petal.Length: 5.7","Sepal.Length: 7.2<br />Sepal.Width: 3.2<br />Species: virginica<br />Petal.Length: 6.0","Sepal.Length: 6.2<br />Sepal.Width: 2.8<br />Species: virginica<br />Petal.Length: 4.8","Sepal.Length: 6.1<br />Sepal.Width: 3.0<br />Species: virginica<br />Petal.Length: 4.9","Sepal.Length: 6.4<br />Sepal.Width: 2.8<br />Species: virginica<br />Petal.Length: 5.6","Sepal.Length: 7.2<br />Sepal.Width: 3.0<br />Species: virginica<br />Petal.Length: 5.8","Sepal.Length: 7.4<br />Sepal.Width: 2.8<br />Species: virginica<br />Petal.Length: 6.1","Sepal.Length: 7.9<br />Sepal.Width: 3.8<br />Species: virginica<br />Petal.Length: 6.4","Sepal.Length: 6.4<br />Sepal.Width: 2.8<br />Species: virginica<br />Petal.Length: 5.6","Sepal.Length: 6.3<br />Sepal.Width: 2.8<br />Species: virginica<br />Petal.Length: 5.1","Sepal.Length: 6.1<br />Sepal.Width: 2.6<br />Species: virginica<br />Petal.Length: 5.6","Sepal.Length: 7.7<br />Sepal.Width: 3.0<br />Species: virginica<br />Petal.Length: 6.1","Sepal.Length: 6.3<br />Sepal.Width: 3.4<br />Species: virginica<br />Petal.Length: 5.6","Sepal.Length: 6.4<br />Sepal.Width: 3.1<br />Species: virginica<br />Petal.Length: 5.5","Sepal.Length: 6.0<br />Sepal.Width: 3.0<br />Species: virginica<br />Petal.Length: 4.8","Sepal.Length: 6.9<br />Sepal.Width: 3.1<br />Species: virginica<br />Petal.Length: 5.4","Sepal.Length: 6.7<br />Sepal.Width: 3.1<br />Species: virginica<br />Petal.Length: 5.6","Sepal.Length: 6.9<br />Sepal.Width: 3.1<br />Species: virginica<br />Petal.Length: 5.1","Sepal.Length: 5.8<br />Sepal.Width: 2.7<br />Species: virginica<br />Petal.Length: 5.1","Sepal.Length: 6.8<br />Sepal.Width: 3.2<br />Species: virginica<br />Petal.Length: 5.9","Sepal.Length: 6.7<br />Sepal.Width: 3.3<br />Species: virginica<br />Petal.Length: 5.7","Sepal.Length: 6.7<br />Sepal.Width: 3.0<br />Species: virginica<br />Petal.Length: 5.2","Sepal.Length: 6.3<br />Sepal.Width: 2.5<br />Species: virginica<br />Petal.Length: 5.0","Sepal.Length: 6.5<br />Sepal.Width: 3.0<br />Species: virginica<br />Petal.Length: 5.2","Sepal.Length: 6.2<br />Sepal.Width: 3.4<br />Species: virginica<br />Petal.Length: 5.4","Sepal.Length: 5.9<br />Sepal.Width: 3.0<br />Species: virginica<br />Petal.Length: 5.1"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(97,156,255,1)","opacity":1,"size":[21.17621325162186,19.532896466386788,21.001367751794024,20.465842288170109,20.824728824001159,22.19044915076994,18.334639072202979,21.690511716021859,20.824728824001159,21.349318865376187,19.532896466386788,19.912550178946361,20.283472717027522,19.339596275766016,19.532896466386788,19.912550178946361,20.283472717027522,22.35410500560798,22.677165354330711,19.339596275766016,20.646240122586843,19.143864349396768,22.35410500560798,19.143864349396768,20.646240122586843,21.17621325162186,18.94560653634278,19.143864349396768,20.465842288170109,20.824728824001159,21.349318865376187,21.858693660754415,20.465842288170109,19.532896466386788,20.465842288170109,21.349318865376187,20.465842288170109,20.283472717027522,18.94560653634278,20.099065307277083,20.465842288170109,19.532896466386788,19.532896466386788,21.001367751794024,20.646240122586843,19.723853364563592,19.339596275766016,19.723853364563592,20.099065307277083,19.532896466386788],"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(97,156,255,1)"}},"hoveron":"points","name":"virginica","legendgroup":"virginica","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":25.74124809741248,"r":7.3059360730593621,"b":39.69558599695587,"l":43.105022831050235},"plot_bgcolor":"rgba(235,235,235,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[4.1200000000000001,8.0800000000000001],"tickmode":"array","ticktext":["5","6","7","8"],"tickvals":[5,6,7,8],"categoryorder":"array","categoryarray":["5","6","7","8"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"Sepal length","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[1.8799999999999999,4.5200000000000005],"tickmode":"array","ticktext":["2.0","2.5","3.0","3.5","4.0","4.5"],"tickvals":[2,2.5,3,3.5,4,4.5],"categoryorder":"array","categoryarray":["2.0","2.5","3.0","3.5","4.0","4.5"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"Sepal width","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.8897637795275593,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498},"title":{"text":"Petal.Length<br />Species","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"431c77114e9a":{"x":{},"y":{},"colour":{},"size":{},"type":"scatter"}},"cur_data":"431c77114e9a","visdat":{"431c77114e9a":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> iris <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>Species) <span class="sc">%&gt;%</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>value, <span class="at">x=</span>name, <span class="at">fill=</span>Species)) <span class="sc">+</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">position =</span> <span class="fu">position_dodge2</span>(<span class="at">preserve =</span> <span class="st">"single"</span>)) <span class="sc">+</span> </span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"cm"</span>, <span class="at">x=</span><span class="st">""</span>) </span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplotly</span>(p) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layout</span>(<span class="at">boxmode =</span> <span class="st">"group"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-ae669a13841577ea30b6" style="width:100%;height:487px;"></div>
+<script type="application/json" data-for="htmlwidget-ae669a13841577ea30b6">{"x":{"data":[{"x":[3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],"y":[5.0999999999999996,4.9000000000000004,4.9000000000000004,5.4000000000000004,4.9000000000000004,4.4000000000000004,5,5.2000000000000002,4.7000000000000002,5.0999999999999996,5.5,5.5,4.5999999999999996,5,5.4000000000000004,5,5,4.5,4.7999999999999998,4.4000000000000004,5.4000000000000004,4.4000000000000004,4.7999999999999998,4.9000000000000004,4.5999999999999996,5,4.2999999999999998,5.0999999999999996,4.5999999999999996,5.0999999999999996,5.7999999999999998,4.7999999999999998,5.2999999999999998,4.7999999999999998,5.7000000000000002,5,5,5.0999999999999996,5.4000000000000004,5,5.4000000000000004,5.0999999999999996,5.2000000000000002,5.0999999999999996,5.7000000000000002,5.2000000000000002,4.5999999999999996,5.0999999999999996,4.7000000000000002,4.7999999999999998,3.5,3,3.2000000000000002,3.1000000000000001,3,3.7000000000000002,3.6000000000000001,4,3.3999999999999999,2.8999999999999999,3.8999999999999999,4.4000000000000004,3,3.1000000000000001,3.3999999999999999,3.8999999999999999,3.3999999999999999,3.2999999999999998,3.3999999999999999,3.5,3.5,3.3999999999999999,3.7000000000000002,3.7999999999999998,3.3999999999999999,3,3.6000000000000001,3.7999999999999998,3.2000000000000002,3.3999999999999999,3.5,3.3999999999999999,3.1000000000000001,3.5,3.6000000000000001,3.1000000000000001,3.3999999999999999,2.2999999999999998,3,3.2000000000000002,4.0999999999999996,3.2000000000000002,3.2999999999999998,4.2000000000000002,3.5,3.2000000000000002,3.7999999999999998,3.7000000000000002,3,3.7999999999999998,1.5,1.3999999999999999,1.3999999999999999,1.7,1.3,1.3999999999999999,1.3,1.3999999999999999,1.5,1.3999999999999999,1.2,1.6000000000000001,1.3999999999999999,1.7,1.5,1.3999999999999999,1.5,1.5,1.6000000000000001,1.1000000000000001,1.5,1.7,1.6000000000000001,1.5,1.8999999999999999,1.5,1.5,1.3999999999999999,1.6000000000000001,1,1.5,1.3,1.6000000000000001,1.7,1.3999999999999999,1.6000000000000001,1.3,1.3999999999999999,1.5,1.8999999999999999,1.3,1.3,1.2,1.3999999999999999,1.5,1.3,1.6000000000000001,1.3999999999999999,1.5,1.3999999999999999,0.29999999999999999,0.20000000000000001,0.20000000000000001,0.20000000000000001,0.40000000000000002,0.40000000000000002,0.20000000000000001,0.20000000000000001,0.10000000000000001,0.20000000000000001,0.5,0.20000000000000001,0.20000000000000001,0.20000000000000001,0.20000000000000001,0.20000000000000001,0.20000000000000001,0.20000000000000001,0.20000000000000001,0.20000000000000001,0.40000000000000002,0.20000000000000001,0.40000000000000002,0.20000000000000001,0.29999999999999999,0.59999999999999998,0.29999999999999999,0.10000000000000001,0.20000000000000001,0.40000000000000002,0.29999999999999999,0.20000000000000001,0.20000000000000001,0.29999999999999999,0.20000000000000001,0.20000000000000001,0.10000000000000001,0.20000000000000001,0.40000000000000002,0.10000000000000001,0.20000000000000001,0.20000000000000001,0.29999999999999999,0.20000000000000001,0.20000000000000001,0.20000000000000001,0.29999999999999999,0.40000000000000002,0.10000000000000001,0.20000000000000001],"hoverinfo":"y","type":"box","fillcolor":"rgba(248,118,109,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"},"size":5.6692913385826778},"line":{"color":"rgba(51,51,51,1)","width":1.8897637795275593},"name":"setosa","legendgroup":"setosa","showlegend":true,"xaxis":"x","yaxis":"y","frame":null},{"x":[3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],"y":[7,6.2999999999999998,5.4000000000000004,5.5,6.4000000000000004,5.5999999999999996,6,5.7999999999999998,6.9000000000000004,5.5,6.7000000000000002,6,5.5,5.5,5,4.9000000000000004,6.5,6.0999999999999996,5.9000000000000004,6.5999999999999996,5.7000000000000002,5.7999999999999998,6,5.2000000000000002,6.2999999999999998,5,6.0999999999999996,6.0999999999999996,6.2000000000000002,5.5999999999999996,5.5999999999999996,6.4000000000000004,5.0999999999999996,5.7000000000000002,6.7000000000000002,6.5999999999999996,5.7000000000000002,5.7000000000000002,5.5999999999999996,6.7999999999999998,5.9000000000000004,5.7999999999999998,6.7000000000000002,6.0999999999999996,6.2000000000000002,6,6.2999999999999998,5.5999999999999996,5.7000000000000002,5.5,3.2000000000000002,3.2000000000000002,3.1000000000000001,2.2999999999999998,2.8999999999999999,2,2.7999999999999998,2.8999999999999999,3,2.8999999999999999,2.7999999999999998,3.1000000000000001,2.2000000000000002,2.7000000000000002,3.2999999999999998,3,2.7999999999999998,2.7999999999999998,2.3999999999999999,2.7000000000000002,3,2.8999999999999999,2.7999999999999998,2.2000000000000002,2.8999999999999999,3,2.5,2.5,2.6000000000000001,2.5,3.1000000000000001,3.2000000000000002,2.3999999999999999,2.6000000000000001,2.2999999999999998,3,2.3999999999999999,3,3,3.3999999999999999,2.7000000000000002,2.6000000000000001,2.7999999999999998,2.7000000000000002,2.2999999999999998,2.8999999999999999,2.7000000000000002,2.5,3,2.8999999999999999,4,4.5999999999999996,4.5,4.5,4.9000000000000004,4.7000000000000002,4.5,4.7000000000000002,3.2999999999999998,4.0999999999999996,3.6000000000000001,4.2000000000000002,4.5999999999999996,4.5,4.4000000000000004,4,3.8999999999999999,3.8999999999999999,3.5,4.7000000000000002,3.5,4.7999999999999998,3.7999999999999998,5,4.2999999999999998,4,3.7000000000000002,4.5,4.4000000000000004,4.9000000000000004,3.8999999999999999,4,4.7999999999999998,4.7000000000000002,5.0999999999999996,3.2999999999999998,4.4000000000000004,4.4000000000000004,4.5,4.2000000000000002,4.5999999999999996,4.0999999999999996,4.5,4.2000000000000002,4,4.7000000000000002,4.2000000000000002,4.2999999999999998,3,4.0999999999999996,1.1000000000000001,1.8,1.1000000000000001,1.7,1.3,1,1.5,1.5,1.2,1,1.2,1.6000000000000001,1.3,1.3999999999999999,1.3,1.5,1.5,1.5,1.3999999999999999,1.6000000000000001,1.3,1.5,1.3999999999999999,1.5,1.6000000000000001,1,1.2,1.3,1,1.3,1.3999999999999999,1.3,1.3,1.2,1.2,1.3,1.3999999999999999,1.3,1.5,1.3999999999999999,1,1.3,1,1.3,1.5,1.1000000000000001,1.5,1.3999999999999999,1,1.3],"hoverinfo":"y","type":"box","fillcolor":"rgba(0,186,56,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"},"size":5.6692913385826778},"line":{"color":"rgba(51,51,51,1)","width":1.8897637795275593},"name":"versicolor","legendgroup":"versicolor","showlegend":true,"xaxis":"x","yaxis":"y","frame":null},{"x":[3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],"y":[6.2999999999999998,6.4000000000000004,6.0999999999999996,7.9000000000000004,5.7999999999999998,6,7.7000000000000002,6.4000000000000004,7.0999999999999996,6.9000000000000004,6.2999999999999998,6.2999999999999998,6.2999999999999998,6.7000000000000002,6.5,7.2999999999999998,6.5,6.9000000000000004,6.4000000000000004,6.7000000000000002,7.5999999999999996,5.7999999999999998,6.7999999999999998,7.2000000000000002,4.9000000000000004,6.7999999999999998,5.7000000000000002,6.2999999999999998,6.5,6.7000000000000002,5.7999999999999998,6.7000000000000002,6.2000000000000002,6.7000000000000002,6.4000000000000004,7.2000000000000002,5.9000000000000004,6.2999999999999998,6.5,6.2000000000000002,6.9000000000000004,7.7000000000000002,6.0999999999999996,5.5999999999999996,7.7000000000000002,6.4000000000000004,7.7000000000000002,6,7.2000000000000002,7.4000000000000004,3.2999999999999998,2.7000000000000002,3,2.8999999999999999,2.5,3.2000000000000002,3,2.7999999999999998,2.7000000000000002,2.5,3,3.2000000000000002,3,3.6000000000000001,2.5,3,2.7999999999999998,2.7000000000000002,2.8999999999999999,3.7999999999999998,3,3.2999999999999998,2.7999999999999998,2.6000000000000001,2.7999999999999998,3.2000000000000002,2.7999999999999998,2.2000000000000002,3,3.1000000000000001,3.3999999999999999,3.2000000000000002,2.7999999999999998,3.1000000000000001,3.1000000000000001,2.6000000000000001,3.7999999999999998,3.1000000000000001,3,3,2.7999999999999998,2.7000000000000002,3,2.7999999999999998,3.2000000000000002,3,3.2999999999999998,3.3999999999999999,3,2.5,5.5999999999999996,5.7999999999999998,5.0999999999999996,6.5999999999999996,5.9000000000000004,4.5,5.5,6,6.2999999999999998,6.7000000000000002,5.0999999999999996,5.2999999999999998,5.7999999999999998,6.9000000000000004,5.2999999999999998,5.5,6.0999999999999996,5,5.7999999999999998,5,5.0999999999999996,5.7000000000000002,6.0999999999999996,4.9000000000000004,5.7000000000000002,4.9000000000000004,6.4000000000000004,5.5999999999999996,6,6.7000000000000002,5.5999999999999996,5.0999999999999996,4.7999999999999998,4.9000000000000004,5.0999999999999996,5.9000000000000004,5.5999999999999996,5.5,5.5999999999999996,5.7000000000000002,5.0999999999999996,4.7999999999999998,6.0999999999999996,5.2000000000000002,5.4000000000000004,5.5999999999999996,5,5.2000000000000002,5.4000000000000004,5.0999999999999996,1.5,2.2999999999999998,1.8999999999999999,1.8,2,2,2.1000000000000001,2,2.2000000000000002,1.6000000000000001,1.8,1.5,1.8,2.5,2.1000000000000001,1.3999999999999999,2.2000000000000002,1.8999999999999999,1.8,2.2999999999999998,2.1000000000000001,2.1000000000000001,1.8,2.3999999999999999,1.7,2.2999999999999998,2.3999999999999999,1.8,1.8,2.5,2.2999999999999998,1.8,1.8,2.2999999999999998,1.8999999999999999,2.1000000000000001,2.5,1.8999999999999999,1.8,2,2,2,2.2000000000000002,2.3999999999999999,1.8999999999999999,2.2999999999999998,2.2999999999999998,2.2999999999999998,2.1000000000000001,1.8],"hoverinfo":"y","type":"box","fillcolor":"rgba(97,156,255,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"},"size":5.6692913385826778},"line":{"color":"rgba(51,51,51,1)","width":1.8897637795275593},"name":"virginica","legendgroup":"virginica","showlegend":true,"xaxis":"x","yaxis":"y","frame":null}],"layout":{"margin":{"t":25.74124809741248,"r":7.3059360730593621,"b":25.083713850837142,"l":31.415525114155255},"plot_bgcolor":"rgba(235,235,235,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,4.5999999999999996],"tickmode":"array","ticktext":["Petal.Length","Petal.Width","Sepal.Length","Sepal.Width"],"tickvals":[1,2,3,4],"categoryorder":"array","categoryarray":["Petal.Length","Petal.Width","Sepal.Length","Sepal.Width"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-0.29000000000000004,8.2900000000000009],"tickmode":"array","ticktext":["0","2","4","6","8"],"tickvals":[-5.5511151231257827e-17,2,4,6,7.9999999999999991],"categoryorder":"array","categoryarray":["0","2","4","6","8"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"cm","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.8897637795275593,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498},"title":{"text":"Species","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}}},"hovermode":"closest","barmode":"relative","boxmode":"group"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"431c15006e76":{"x":{},"y":{},"fill":{},"type":"box"}},"cur_data":"431c15006e76","visdat":{"431c15006e76":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+<div id="tabset-4-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-3-tab">
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x=</span>Sepal.Length, <span class="at">fill=</span>Species)) <span class="sc">+</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplotly</span>(p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-c7936c47561e9eb9667d" style="width:100%;height:487px;"></div>
+<script type="application/json" data-for="htmlwidget-c7936c47561e9eb9667d">{"x":{"data":[{"orientation":"v","width":[0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256],"base":[0,0,0,0,2,2,1,1,1,5,6,6,6,9,6,4,9,12,2,8,3,5,1,3,1,1,1,4,0,1],"x":[4.3448275862068968,4.4689655172413794,4.5931034482758619,4.7172413793103454,4.8413793103448279,4.9655172413793105,5.0896551724137939,5.2137931034482765,5.3379310344827591,5.4620689655172416,5.5862068965517242,5.7103448275862068,5.8344827586206902,5.9586206896551728,6.0827586206896562,6.2068965517241388,6.3310344827586214,6.4551724137931039,6.5793103448275865,6.703448275862069,6.8275862068965516,6.9517241379310351,7.0758620689655185,7.2000000000000011,7.3241379310344836,7.4482758620689662,7.5724137931034488,7.6965517241379313,7.8206896551724139,7.9448275862068982],"y":[4,1,4,2,9,8,8,3,6,2,0,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"text":["count: 4<br />Sepal.Length: 4.344828<br />Species: setosa","count: 1<br />Sepal.Length: 4.468966<br />Species: setosa","count: 4<br />Sepal.Length: 4.593103<br />Species: setosa","count: 2<br />Sepal.Length: 4.717241<br />Species: setosa","count: 9<br />Sepal.Length: 4.841379<br />Species: setosa","count: 8<br />Sepal.Length: 4.965517<br />Species: setosa","count: 8<br />Sepal.Length: 5.089655<br />Species: setosa","count: 3<br />Sepal.Length: 5.213793<br />Species: setosa","count: 6<br />Sepal.Length: 5.337931<br />Species: setosa","count: 2<br />Sepal.Length: 5.462069<br />Species: setosa","count: 0<br />Sepal.Length: 5.586207<br />Species: setosa","count: 2<br />Sepal.Length: 5.710345<br />Species: setosa","count: 1<br />Sepal.Length: 5.834483<br />Species: setosa","count: 0<br />Sepal.Length: 5.958621<br />Species: setosa","count: 0<br />Sepal.Length: 6.082759<br />Species: setosa","count: 0<br />Sepal.Length: 6.206897<br />Species: setosa","count: 0<br />Sepal.Length: 6.331034<br />Species: setosa","count: 0<br />Sepal.Length: 6.455172<br />Species: setosa","count: 0<br />Sepal.Length: 6.579310<br />Species: setosa","count: 0<br />Sepal.Length: 6.703448<br />Species: setosa","count: 0<br />Sepal.Length: 6.827586<br />Species: setosa","count: 0<br />Sepal.Length: 6.951724<br />Species: setosa","count: 0<br />Sepal.Length: 7.075862<br />Species: setosa","count: 0<br />Sepal.Length: 7.200000<br />Species: setosa","count: 0<br />Sepal.Length: 7.324138<br />Species: setosa","count: 0<br />Sepal.Length: 7.448276<br />Species: setosa","count: 0<br />Sepal.Length: 7.572414<br />Species: setosa","count: 0<br />Sepal.Length: 7.696552<br />Species: setosa","count: 0<br />Sepal.Length: 7.820690<br />Species: setosa","count: 0<br />Sepal.Length: 7.944828<br />Species: setosa"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(248,118,109,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"setosa","legendgroup":"setosa","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256],"base":[0,0,0,0,1,0,0,0,0,0,1,1,3,3,2,2,6,9,0,5,2,3,1,3,1,1,1,4,0,1],"x":[4.3448275862068968,4.4689655172413794,4.5931034482758619,4.7172413793103454,4.8413793103448279,4.9655172413793105,5.0896551724137939,5.2137931034482765,5.3379310344827591,5.4620689655172416,5.5862068965517242,5.7103448275862068,5.8344827586206902,5.9586206896551728,6.0827586206896562,6.2068965517241388,6.3310344827586214,6.4551724137931039,6.5793103448275865,6.703448275862069,6.8275862068965516,6.9517241379310351,7.0758620689655185,7.2000000000000011,7.3241379310344836,7.4482758620689662,7.5724137931034488,7.6965517241379313,7.8206896551724139,7.9448275862068982],"y":[0,0,0,0,1,2,1,1,1,5,5,5,3,6,4,2,3,3,2,3,1,2,0,0,0,0,0,0,0,0],"text":["count: 0<br />Sepal.Length: 4.344828<br />Species: versicolor","count: 0<br />Sepal.Length: 4.468966<br />Species: versicolor","count: 0<br />Sepal.Length: 4.593103<br />Species: versicolor","count: 0<br />Sepal.Length: 4.717241<br />Species: versicolor","count: 1<br />Sepal.Length: 4.841379<br />Species: versicolor","count: 2<br />Sepal.Length: 4.965517<br />Species: versicolor","count: 1<br />Sepal.Length: 5.089655<br />Species: versicolor","count: 1<br />Sepal.Length: 5.213793<br />Species: versicolor","count: 1<br />Sepal.Length: 5.337931<br />Species: versicolor","count: 5<br />Sepal.Length: 5.462069<br />Species: versicolor","count: 5<br />Sepal.Length: 5.586207<br />Species: versicolor","count: 5<br />Sepal.Length: 5.710345<br />Species: versicolor","count: 3<br />Sepal.Length: 5.834483<br />Species: versicolor","count: 6<br />Sepal.Length: 5.958621<br />Species: versicolor","count: 4<br />Sepal.Length: 6.082759<br />Species: versicolor","count: 2<br />Sepal.Length: 6.206897<br />Species: versicolor","count: 3<br />Sepal.Length: 6.331034<br />Species: versicolor","count: 3<br />Sepal.Length: 6.455172<br />Species: versicolor","count: 2<br />Sepal.Length: 6.579310<br />Species: versicolor","count: 3<br />Sepal.Length: 6.703448<br />Species: versicolor","count: 1<br />Sepal.Length: 6.827586<br />Species: versicolor","count: 2<br />Sepal.Length: 6.951724<br />Species: versicolor","count: 0<br />Sepal.Length: 7.075862<br />Species: versicolor","count: 0<br />Sepal.Length: 7.200000<br />Species: versicolor","count: 0<br />Sepal.Length: 7.324138<br />Species: versicolor","count: 0<br />Sepal.Length: 7.448276<br />Species: versicolor","count: 0<br />Sepal.Length: 7.572414<br />Species: versicolor","count: 0<br />Sepal.Length: 7.696552<br />Species: versicolor","count: 0<br />Sepal.Length: 7.820690<br />Species: versicolor","count: 0<br />Sepal.Length: 7.944828<br />Species: versicolor"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(0,186,56,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"versicolor","legendgroup":"versicolor","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256,0.12413793103448256],"base":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"x":[4.3448275862068968,4.4689655172413794,4.5931034482758619,4.7172413793103454,4.8413793103448279,4.9655172413793105,5.0896551724137939,5.2137931034482765,5.3379310344827591,5.4620689655172416,5.5862068965517242,5.7103448275862068,5.8344827586206902,5.9586206896551728,6.0827586206896562,6.2068965517241388,6.3310344827586214,6.4551724137931039,6.5793103448275865,6.703448275862069,6.8275862068965516,6.9517241379310351,7.0758620689655185,7.2000000000000011,7.3241379310344836,7.4482758620689662,7.5724137931034488,7.6965517241379313,7.8206896551724139,7.9448275862068982],"y":[0,0,0,0,1,0,0,0,0,0,1,1,3,3,2,2,6,9,0,5,2,3,1,3,1,1,1,4,0,1],"text":["count: 0<br />Sepal.Length: 4.344828<br />Species: virginica","count: 0<br />Sepal.Length: 4.468966<br />Species: virginica","count: 0<br />Sepal.Length: 4.593103<br />Species: virginica","count: 0<br />Sepal.Length: 4.717241<br />Species: virginica","count: 1<br />Sepal.Length: 4.841379<br />Species: virginica","count: 0<br />Sepal.Length: 4.965517<br />Species: virginica","count: 0<br />Sepal.Length: 5.089655<br />Species: virginica","count: 0<br />Sepal.Length: 5.213793<br />Species: virginica","count: 0<br />Sepal.Length: 5.337931<br />Species: virginica","count: 0<br />Sepal.Length: 5.462069<br />Species: virginica","count: 1<br />Sepal.Length: 5.586207<br />Species: virginica","count: 1<br />Sepal.Length: 5.710345<br />Species: virginica","count: 3<br />Sepal.Length: 5.834483<br />Species: virginica","count: 3<br />Sepal.Length: 5.958621<br />Species: virginica","count: 2<br />Sepal.Length: 6.082759<br />Species: virginica","count: 2<br />Sepal.Length: 6.206897<br />Species: virginica","count: 6<br />Sepal.Length: 6.331034<br />Species: virginica","count: 9<br />Sepal.Length: 6.455172<br />Species: virginica","count: 0<br />Sepal.Length: 6.579310<br />Species: virginica","count: 5<br />Sepal.Length: 6.703448<br />Species: virginica","count: 2<br />Sepal.Length: 6.827586<br />Species: virginica","count: 3<br />Sepal.Length: 6.951724<br />Species: virginica","count: 1<br />Sepal.Length: 7.075862<br />Species: virginica","count: 3<br />Sepal.Length: 7.200000<br />Species: virginica","count: 1<br />Sepal.Length: 7.324138<br />Species: virginica","count: 1<br />Sepal.Length: 7.448276<br />Species: virginica","count: 1<br />Sepal.Length: 7.572414<br />Species: virginica","count: 4<br />Sepal.Length: 7.696552<br />Species: virginica","count: 0<br />Sepal.Length: 7.820690<br />Species: virginica","count: 1<br />Sepal.Length: 7.944828<br />Species: virginica"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(97,156,255,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"virginica","legendgroup":"virginica","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":25.74124809741248,"r":7.3059360730593621,"b":39.69558599695587,"l":48.949771689497723},"plot_bgcolor":"rgba(235,235,235,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[4.0965517241379317,8.1931034482758633],"tickmode":"array","ticktext":["5","6","7","8"],"tickvals":[5,6,7,8],"categoryorder":"array","categoryarray":["5","6","7","8"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"Sepal.Length","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-0.60000000000000009,12.6],"tickmode":"array","ticktext":["0.0","2.5","5.0","7.5","10.0","12.5"],"tickvals":[0,2.5,5,7.5,10,12.5],"categoryorder":"array","categoryarray":["0.0","2.5","5.0","7.5","10.0","12.5"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"count","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.8897637795275593,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498},"title":{"text":"Species","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"431c5eed405e":{"x":{},"fill":{},"type":"bar"}},"cur_data":"431c5eed405e","visdat":{"431c5eed405e":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="theme-settings" class="level2">
+<h2 class="anchored" data-anchor-id="theme-settings">Theme settings</h2>
+<p>ggplot2 comes with a couple of themes to choose from, which are displayed below (<code>theme_gray()</code>,<code>theme_minimal()</code>,<code>theme_bw()</code>,<code>theme_classic()</code>,<code>theme_dark()</code>,<code>theme_light()</code>). Custom themes can also be set up, see e.g.&nbsp;<a href="https://rpubs.com/mclaire19/ggplot2-custom-themes">Learning to create custom themes in ggplot</a> for a tutorial. Custom themes might be added to this document at a later date.</p>
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x=</span>Sepal.Length, <span class="at">y=</span>Sepal.Width, <span class="at">color=</span>Species)) <span class="sc">+</span> </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">show.legend =</span> F) <span class="sc">+</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Sepal length"</span>) <span class="sc">+</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Sepal width"</span>)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>(p1 <span class="sc">+</span> <span class="fu">theme_gray</span>() <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Gray"</span>)) <span class="sc">+</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>(p1 <span class="sc">+</span> <span class="fu">theme_minimal</span>()<span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Minimal"</span>)) <span class="sc">+</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>(p1 <span class="sc">+</span> <span class="fu">theme_bw</span>()<span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Black and white"</span>)) <span class="sc">+</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>(p1 <span class="sc">+</span> <span class="fu">theme_classic</span>()<span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Classic"</span>)) <span class="sc">+</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>(p1 <span class="sc">+</span> <span class="fu">theme_dark</span>()<span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Dark"</span>)) <span class="sc">+</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>(p1 <span class="sc">+</span> <span class="fu">theme_light</span>()<span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Light"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="ggplot2_quick_ref_files/figure-html/unnamed-chunk-22-1.svg" class="img-fluid quarto-figure quarto-figure-left figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="colors" class="level3">
+<h3 class="anchored" data-anchor-id="colors">Colors</h3>
+<p>Color palettes can be defined through lists of either default colors supported in ggplot2 or through the colors RGB representation. They can also be named in cases where matches between specific groups and colors are desired.</p>
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>my_palette1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'purple'</span>, <span class="st">'orange'</span>, <span class="st">'aquamarine3'</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>my_palette2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'virginica'</span> <span class="ot">=</span> <span class="st">'#FF0000'</span>, <span class="st">'setosa'</span> <span class="ot">=</span> <span class="st">'#00FF00'</span>, <span class="st">'versicolor'</span> <span class="ot">=</span> <span class="st">'#0000FF'</span>) <span class="co"># Fully Red, Green, Blue in RGB notation</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x=</span>Sepal.Length, <span class="at">y=</span>Sepal.Width, <span class="at">color=</span>Species)) <span class="sc">+</span> </span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Sepal length"</span>) <span class="sc">+</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Sepal width"</span>) </span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>(p1 <span class="sc">+</span> <span class="fu">scale_color_manual</span>(<span class="at">values =</span> my_palette1)) <span class="sc">+</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  (p1 <span class="sc">+</span> <span class="fu">scale_color_manual</span>(<span class="at">values =</span> my_palette2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="ggplot2_quick_ref_files/figure-html/unnamed-chunk-23-1.svg" class="img-fluid quarto-figure quarto-figure-left figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Here are some examples of color palettes from the <a href="https://colorbrewer2.org">ColorBrewer set</a>. These can easily be used with ggplot through the function <code>scale_colour_brewer(palette = "palette name")</code>. Further palettes can be acquired from the R package <a href="https://emilhvitfeldt.github.io/paletteer/">Paletteer</a> which contains more than 2000 color palettes, including continuous palettes, and functions for simple use with ggplot.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">Qualitative</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">Sequential</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-3" role="tab" aria-controls="tabset-5-3" aria-selected="false">Diverging</a></li></ul>
+<div class="tab-content">
+<div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
+<p>The qualitative colors of the Colorbrewer set are shown below. These are useful for distinguishing between different groups of data. For example, the different flower species in the iris data set.</p>
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">display.brewer.all</span>(<span class="at">type=</span><span class="st">'qual'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="ggplot2_quick_ref_files/figure-html/unnamed-chunk-24-1.svg" class="img-fluid quarto-figure quarto-figure-left figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
+<p>Below are the sequential colors of the Colorbrewer set, useful for ordered data visualizations such as heat maps.</p>
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">display.brewer.all</span>(<span class="at">type=</span><span class="st">'seq'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="ggplot2_quick_ref_files/figure-html/unnamed-chunk-25-1.svg" class="img-fluid quarto-figure quarto-figure-left figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-5-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-3-tab">
+<p>The diverging colors diverge in two directions from a central color, emphasizing a mid-range value and/or the extremes. Useful for comparisons in relation to a chosen value/group or for loose groupings of ordered data.</p>
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">display.brewer.all</span>(<span class="at">type=</span><span class="st">'div'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="ggplot2_quick_ref_files/figure-html/unnamed-chunk-26-1.svg" class="img-fluid quarto-figure quarto-figure-left figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
