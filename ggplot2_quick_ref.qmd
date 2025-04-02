@@ -86,7 +86,7 @@ p1 + p2
 
 #### Jitter
 
-Example taken from [ggplot2 reference](https://ggplot2.tidyverse.org/reference/geom_jitter.html). Shows the same data with and without jitter.
+Example taken from [ggplot2 reference](https://ggplot2.tidyverse.org/reference/geom_jitter.html). Shows the same data with and without jitter. Another option for categorical scatter plots is the [beeswarm plot](https://r-graph-gallery.com/beeswarm.html), which separates the points in a systematic way rather than random. 
 
 ```{r fig.height=4, fig.width=8}
 p1 <- ggplot(mpg, aes(cyl, hwy)) + 
