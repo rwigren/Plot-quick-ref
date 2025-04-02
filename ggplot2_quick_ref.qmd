@@ -17,13 +17,14 @@ knitr::opts_chunk$set(dev = 'svg',       # set output to svg
                       fig.align = 'left')
 ```
 
-------------------------------------------------------------------------
+
+[ggplot2](https://ggplot2.tidyverse.org/) is a declarative system for making graphics in R based on [The Grammar of Graphics](https://link.springer.com/book/10.1007/0-387-28695-0). This document contains plots made in ggplot2 and some information about theming in ggplot2 to use as reference. It is meant to help learn/renew skills and as a reference for some less standard plots (e.g. time series plots with feats/fable).
+
+Posit upholds a [cheat sheet](https://posit.co/wp-content/uploads/2022/10/data-visualization-1.pdf) for ggplot2, which shows most of its methods in a compact manner.
+
 
 ## Plots
 
-This document contains plots made in ggplot2 and some information about theming in ggplot2 to use as reference. It is meant mainly to help renew rusty skills, but also as a reference for some less standard plots (eg. time series plots with feats/fable).
-
-Posit upholds a [cheat sheet](https://posit.co/wp-content/uploads/2022/10/data-visualization-1.pdf) for ggplot2, which shows most methods of ggplot2 in a compact manner.
 
 ```{r}
 library(ggplot2)
@@ -37,7 +38,12 @@ library(patchwork)
 
 ### Scatter plots {#scatter}
 
-You can separate data on `color`, `shape` and `size`. `position="jitter"` and `alpha` can be used to make plots more readable when many data points are present.
+You can separate data on `color`, `shape` and `size`. `alpha` can be used to make plots more readable when many data points are present. `position="jitter"` is useful in cases of discrete positions in data.
+
+::: panel-tabset
+
+
+#### Standard
 
 ```{r fig.align='left'}
 ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, color=Species)) + 
@@ -45,6 +51,54 @@ ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, color=Species)) +
   xlab("Sepal length") +
   ylab("Sepal width")
 ```
+
+#### Alpha
+
+Using alpha basically turns the plot into a 2d kernel density estimate (with a circular uniform kernel), which can be useful where points are densly packed.
+
+```{r fig.height=4, fig.width=8}
+n <- 1000
+R <- matrix(c(1, .5, 0, 0,
+              .5, 1, 0, 0,
+              0, 0, 1, -.5,
+              0, 0, -.5, 1), 
+            nrow = 4, ncol = 4, byrow = TRUE)
+
+mu = c(X1=0, X2=0, Y1=-1, Y2=-1)
+data = mvtnorm::rmvnorm(n, mean=mu, sigma=R )
+
+df <- tibble(Class="C1", x = data[,"X1"], y=data[, "X2"]) %>% 
+        bind_rows(
+          tibble(Class="C2", x = data[,"Y1"], y=data[, "Y2"])
+        )
+
+p1 <- ggplot(df, aes(x=x, y=y)) +
+  geom_point() +
+  ggtitle("Standard")
+
+p2 <- ggplot(df, aes(x=x, y=y)) +
+  geom_point(alpha=0.1, size=3)+
+  ggtitle("Alpha = 0.1")
+
+
+p1 + p2
+```
+
+#### Jitter
+
+Example taken from [ggplot2 reference](https://ggplot2.tidyverse.org/reference/geom_jitter.html). Shows the same data with and without jitter.
+
+```{r fig.height=4, fig.width=8}
+p1 <- ggplot(mpg, aes(cyl, hwy)) + 
+  geom_point()
+
+p2 <- ggplot(mpg, aes(cyl, hwy)) + 
+  geom_point(position = "jitter")
+
+ p1 + p2
+```
+
+:::
 
 A pair-wise plot can quite easily be made with the library [GGally](https://ggobi.github.io/ggally/). The diagonal and the upper and lower triangle each have a default plot type for continuous, discrete and combo (discrete on one axis and continuous on the other). These can be changed in the method, see `ggpairs()` documentation for more information.
 

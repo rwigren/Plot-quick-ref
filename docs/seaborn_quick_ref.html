@@ -187,8 +187,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="plots" class="level1">
 <h1>Plots</h1>
 <p><a href="https://seaborn.pydata.org/index.html">Seaborn</a> is a high level library built on <a href="https://matplotlib.org/">matplotlib</a> which uses a declarative approach to create plots. Below are some plots and theming to be used as reference.</p>
-<div id="c6b228fc" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<div id="13425fdf" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> nps</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
@@ -199,28 +199,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="scatter-plot" class="level2">
 <h2 class="anchored" data-anchor-id="scatter-plot">Scatter plot</h2>
 <p>A simple scatter plot can made through code seen below. <code>Hue='species'</code> colors the points after species and groups the data, which is more relevant in other graphs. Labels are set here as an example, but are usually not set in following examples to reduce code clutter.</p>
-<div id="cc7a8626" class="cell" data-execution_count="2">
+<div id="3aca93d3" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.scatterplot(penguins, x<span class="op">=</span><span class="st">'bill_length_mm'</span>, y<span class="op">=</span><span class="st">'flipper_length_mm'</span>, hue<span class="op">=</span><span class="st">'species'</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Labels</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>g.set_xlabel(<span class="st">'Bill length (mm)'</span>)</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>g.set_ylabel(<span class="st">'Flipper Length (mm)'</span>)</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>g.set_title(<span class="st">'Flipper and bill length of penguins'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="2">
-<pre><code>Text(0.5, 1.0, 'Flipper and bill length of penguins')</code></pre>
-</div>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>g.set_title(<span class="st">'Flipper and bill length of penguins'</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="seaborn_quick_ref_files/figure-html/cell-3-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="seaborn_quick_ref_files/figure-html/cell-3-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Seaborn has a default function for generatinog a pairplot. See <a href="https://seaborn.pydata.org/generated/seaborn.PairGrid.html">PairGrid</a> for a more customizable option.</p>
-<div id="d86f5bc2" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.pairplot(penguins, hue<span class="op">=</span><span class="st">'species'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="a3f19b9e" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.pairplot(penguins, hue<span class="op">=</span><span class="st">'species'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -232,13 +230,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="bar-plot" class="level2">
 <h2 class="anchored" data-anchor-id="bar-plot">Bar plot</h2>
-<p>Seaborn contains two types of barplots: <code>countplot()</code> which fittingly counts entries within categories to determine bar height and <code>barplot()</code> which uses an estimator to determine bar height. The default is <code>estimator='mean'</code>, however, <code>'median'</code>, <code>'max'</code>, <code>'min'</code> or a callable function (vector -&gt; scalar) can also be used. <code>barplot()</code> also supports error bars of 4 different types: <code>'sd'</code> (standard deviation of data), <code>'pi'</code> (percentile of data), <code>'se'</code>(standard error of mean estimate) and <code>'ci'</code> (bootstrap confidence intervals). More on these can be seen at https://seaborn.pydata.org/tutorial/error_bars.html.</p>
+<p>Seaborn contains two types of barplots: <code>countplot()</code> which fittingly counts entries within categories to determine bar height and <code>barplot()</code> which uses an estimator to determine bar height. The default is <code>estimator='mean'</code>, however, <code>'median'</code>, <code>'max'</code>, <code>'min'</code> or a callable function (vector -&gt; scalar) can also be used. <code>barplot()</code> also supports error bars of 4 different types: <code>'sd'</code> (standard deviation of data), <code>'pi'</code> (percentile of data), <code>'se'</code>(standard error of mean estimate) and <code>'ci'</code> (bootstrap confidence intervals). More on these can be seen at (https://seaborn.pydata.org/tutorial/error_bars.html).</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">countplot()</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">barplot()</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<div id="c6a73555" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.countplot(penguins, x<span class="op">=</span><span class="st">'species'</span>, hue<span class="op">=</span><span class="st">'species'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="795ce156" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.countplot(penguins, x<span class="op">=</span><span class="st">'species'</span>, hue<span class="op">=</span><span class="st">'species'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -249,9 +247,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<div id="59a6d65b" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.barplot(penguins, x<span class="op">=</span><span class="st">'sex'</span>, y<span class="op">=</span><span class="st">'bill_length_mm'</span>, hue<span class="op">=</span><span class="st">'species'</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>sns.move_legend(g, <span class="st">'lower center'</span>, bbox_to_anchor<span class="op">=</span>(<span class="fl">0.5</span>,<span class="dv">1</span>), ncol<span class="op">=</span><span class="dv">3</span>, frameon<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="8bd9df56" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.barplot(penguins, x<span class="op">=</span><span class="st">'sex'</span>, y<span class="op">=</span><span class="st">'bill_length_mm'</span>, hue<span class="op">=</span><span class="st">'species'</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>sns.move_legend(g, <span class="st">'lower center'</span>, bbox_to_anchor<span class="op">=</span>(<span class="fl">0.5</span>,<span class="dv">1</span>), ncol<span class="op">=</span><span class="dv">3</span>, frameon<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -271,8 +269,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Stack</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Layer</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
-<div id="0c7519e0" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.histplot(penguins, x<span class="op">=</span><span class="st">'bill_length_mm'</span>, hue<span class="op">=</span><span class="st">'species'</span>, multiple<span class="op">=</span><span class="st">'stack'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="269f5661" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.histplot(penguins, x<span class="op">=</span><span class="st">'bill_length_mm'</span>, hue<span class="op">=</span><span class="st">'species'</span>, multiple<span class="op">=</span><span class="st">'stack'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -283,8 +281,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
-<div id="7b61372f" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.histplot(penguins, x<span class="op">=</span><span class="st">'bill_length_mm'</span>, hue<span class="op">=</span><span class="st">'species'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="4ac133ac" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.histplot(penguins, x<span class="op">=</span><span class="st">'bill_length_mm'</span>, hue<span class="op">=</span><span class="st">'species'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -304,8 +302,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Layer</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Stack</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-3" role="tab" aria-controls="tabset-3-3" aria-selected="false">Fill</a></li></ul>
 <div class="tab-content">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
-<div id="46ad4c52" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.kdeplot(penguins, x<span class="op">=</span><span class="st">'bill_length_mm'</span>, hue<span class="op">=</span><span class="st">'species'</span>, fill<span class="op">=</span><span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="505796fb" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.kdeplot(penguins, x<span class="op">=</span><span class="st">'bill_length_mm'</span>, hue<span class="op">=</span><span class="st">'species'</span>, fill<span class="op">=</span><span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -316,8 +314,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
-<div id="328430ee" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.kdeplot(penguins, x<span class="op">=</span><span class="st">'bill_length_mm'</span>, hue<span class="op">=</span><span class="st">'species'</span>, fill<span class="op">=</span><span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.8</span>, multiple<span class="op">=</span><span class="st">'stack'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="0fee4ea7" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.kdeplot(penguins, x<span class="op">=</span><span class="st">'bill_length_mm'</span>, hue<span class="op">=</span><span class="st">'species'</span>, fill<span class="op">=</span><span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.8</span>, multiple<span class="op">=</span><span class="st">'stack'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -328,8 +326,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div id="tabset-3-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-3-tab">
-<div id="2d15ab44" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.kdeplot(penguins, x<span class="op">=</span><span class="st">'bill_length_mm'</span>, hue<span class="op">=</span><span class="st">'species'</span>, fill<span class="op">=</span><span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.8</span>, multiple<span class="op">=</span><span class="st">'fill'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="e60b99cc" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.kdeplot(penguins, x<span class="op">=</span><span class="st">'bill_length_mm'</span>, hue<span class="op">=</span><span class="st">'species'</span>, fill<span class="op">=</span><span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.8</span>, multiple<span class="op">=</span><span class="st">'fill'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -346,8 +344,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">displot</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">FacetGrid</a></li></ul>
 <div class="tab-content">
 <div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
-<div id="ba0abe45" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.displot(penguins, kind<span class="op">=</span><span class="st">'kde'</span>, row<span class="op">=</span><span class="st">'species'</span>, x<span class="op">=</span><span class="st">'bill_length_mm'</span>, hue<span class="op">=</span><span class="st">'species'</span>, fill<span class="op">=</span><span class="va">True</span>, height<span class="op">=</span><span class="dv">2</span>, aspect<span class="op">=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="09528564" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.displot(penguins, kind<span class="op">=</span><span class="st">'kde'</span>, row<span class="op">=</span><span class="st">'species'</span>, x<span class="op">=</span><span class="st">'bill_length_mm'</span>, hue<span class="op">=</span><span class="st">'species'</span>, fill<span class="op">=</span><span class="va">True</span>, height<span class="op">=</span><span class="dv">2</span>, aspect<span class="op">=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -358,9 +356,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
-<div id="6e0a1308" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.FacetGrid(penguins, row<span class="op">=</span><span class="st">'species'</span>, hue<span class="op">=</span><span class="st">'species'</span>, margin_titles<span class="op">=</span><span class="va">True</span>, height<span class="op">=</span><span class="dv">2</span>, aspect<span class="op">=</span><span class="dv">4</span>)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>g.map_dataframe(sns.kdeplot, x<span class="op">=</span><span class="st">"bill_length_mm"</span>, fill<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="9acb5466" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.FacetGrid(penguins, row<span class="op">=</span><span class="st">'species'</span>, hue<span class="op">=</span><span class="st">'species'</span>, margin_titles<span class="op">=</span><span class="va">True</span>, height<span class="op">=</span><span class="dv">2</span>, aspect<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>g.map_dataframe(sns.kdeplot, x<span class="op">=</span><span class="st">"bill_length_mm"</span>, fill<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -375,9 +373,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="box-plot" class="level2">
 <h2 class="anchored" data-anchor-id="box-plot">Box plot</h2>
-<div id="c04d0461" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.boxplot(penguins, x<span class="op">=</span><span class="st">'sex'</span>, y<span class="op">=</span><span class="st">'bill_length_mm'</span>, hue<span class="op">=</span><span class="st">'species'</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>sns.move_legend(g, <span class="st">'lower center'</span>, bbox_to_anchor<span class="op">=</span>(<span class="fl">0.5</span>,<span class="dv">1</span>), ncol<span class="op">=</span><span class="dv">3</span>, frameon<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="161540b3" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.boxplot(penguins, x<span class="op">=</span><span class="st">'sex'</span>, y<span class="op">=</span><span class="st">'bill_length_mm'</span>, hue<span class="op">=</span><span class="st">'species'</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>sns.move_legend(g, <span class="st">'lower center'</span>, bbox_to_anchor<span class="op">=</span>(<span class="fl">0.5</span>,<span class="dv">1</span>), ncol<span class="op">=</span><span class="dv">3</span>, frameon<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -390,13 +388,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="themes" class="level2">
 <h2 class="anchored" data-anchor-id="themes">Themes</h2>
 <p>Themes can be set with the <code>sns.set_theme(style='chosen_theme')</code>, with the built in options <code>'darkgrid'</code> (default), <code>'dark'</code>, <code>'whitegrid'</code>, <code>'white'</code> and <code>'ticks'</code>. Pallette and font type can also be set in the function.</p>
-<div id="697f9c12" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>im <span class="op">=</span> plt.imread(<span class="st">"./images/seaborn_themes.png"</span>)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">7</span>))</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>ax.imshow(im)</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>plt.axis(<span class="st">'off'</span>)</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="e24a0df2" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>im <span class="op">=</span> plt.imread(<span class="st">"./images/seaborn_themes.png"</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">7</span>))</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>ax.imshow(im)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>plt.axis(<span class="st">'off'</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">

@@ -9,7 +9,7 @@ jupyter: python3
 
 
 ```{python}
-import numpy as np
+import numpy as nps
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -31,6 +31,7 @@ g = sns.scatterplot(penguins, x='bill_length_mm', y='flipper_length_mm', hue='sp
 g.set_xlabel('Bill length (mm)')
 g.set_ylabel('Flipper Length (mm)')
 g.set_title('Flipper and bill length of penguins')
+plt.show()
 ```
 
 
@@ -41,7 +42,7 @@ g = sns.pairplot(penguins, hue='species')
 
 
 ## Bar plot
-Seaborn contains two types of barplots: `countplot()` which fittingly counts entries within categories to determine bar height and `barplot()` which uses an estimator to determine bar height. The default is `estimator='mean'`, however, `'median'`, `'max'`, `'min'` or a callable function (vector -> scalar) can also be used. `barplot()` also supports error bars of 4 different types: `'sd'` (standard deviation of data), `'pi'` (percentile of data), `'se'`(standard error of mean estimate) and `'ci'` (bootstrap confidence intervals). More on these can be seen at https://seaborn.pydata.org/tutorial/error_bars.html.
+Seaborn contains two types of barplots: `countplot()` which fittingly counts entries within categories to determine bar height and `barplot()` which uses an estimator to determine bar height. The default is `estimator='mean'`, however, `'median'`, `'max'`, `'min'` or a callable function (vector -> scalar) can also be used. `barplot()` also supports error bars of 4 different types: `'sd'` (standard deviation of data), `'pi'` (percentile of data), `'se'`(standard error of mean estimate) and `'ci'` (bootstrap confidence intervals). More on these can be seen at (https://seaborn.pydata.org/tutorial/error_bars.html).
 
 ::: panel-tabset
 
