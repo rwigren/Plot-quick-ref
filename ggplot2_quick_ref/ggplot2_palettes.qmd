@@ -1,0 +1,60 @@
+
+
+
+```{r}
+#| output: false
+#| echo: false
+
+library(ggplot2)
+library(patchwork)
+```
+
+
+### Color palettes
+
+Color palettes can be defined through lists of either default colors supported in ggplot2 or through the colors RGB representation. They can also be named in cases where matches between specific groups and colors are desired.
+
+```{r fig.height=4, fig.width=10}
+#| label: palettes
+my_palette1 <- c('purple', 'orange', 'aquamarine3')
+my_palette2 <- c('virginica' = '#FF0000', 'setosa' = '#00FF00', 'versicolor' = '#0000FF') # Fully Red, Green, Blue in RGB notation
+
+p1 <- ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, color=Species)) + 
+  geom_point() +
+  xlab("Sepal length") +
+  ylab("Sepal width") 
+
+(p1 + scale_color_manual(values = my_palette1)) +
+  (p1 + scale_color_manual(values = my_palette2))
+
+```
+
+Here are some examples of color palettes from the [ColorBrewer set](https://colorbrewer2.org). These can easily be used with ggplot through the function `scale_colour_brewer(palette = "palette name")`. Further palettes can be acquired from the R package [Paletteer](https://emilhvitfeldt.github.io/paletteer/) which contains more than 2000 color palettes, including continuous palettes, and functions for simple use with ggplot.
+
+::: panel-tabset
+#### Qualitative
+
+The qualitative colors of the Colorbrewer set are shown below. These are useful for distinguishing between different groups of data. For example, the different flower species in the iris data set.
+
+```{r}
+library(RColorBrewer)
+display.brewer.all(type='qual')
+```
+
+#### Sequential
+
+Below are the sequential colors of the Colorbrewer set, useful for ordered data visualizations such as heat maps.
+
+```{r fig.height=9}
+display.brewer.all(type='seq')
+
+```
+
+#### Diverging
+
+The diverging colors diverge in two directions from a central color, emphasizing a mid-range value and/or the extremes. Useful for comparisons in relation to a chosen value/group or for loose groupings of ordered data.
+
+```{r}
+display.brewer.all(type='div')
+```
+:::

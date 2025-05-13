@@ -1,0 +1,54 @@
+
+```{r}
+#| echo: false
+#| output: false
+library(ggplot2)
+library(tidyr)
+```
+
+
+### Plotly
+Plots from ggplot2 can be turned into interactive plots through the library [plotly](https://github.com/plotly/plotly.R), usually with the ease of "plug and play". The resulting charts are equipped with a hover-over tooltip, panning, zooming and selections which can, for example, be used with shiny.
+
+Here are a few examples of some interactive charts using the method.
+
+::: panel-tabset
+#### Scatter plot
+Variables not present in the chart can be added to the hover-over tooltip by adding them to the ggplot2 aesthetics with a chosen name. For example, label1, label2, etc.
+
+```{r}
+#| label: plotly-scatter
+library(plotly)
+p <- ggplot(iris, aes(color=Species, x=Sepal.Length, y=Sepal.Width, label1=Petal.Width, label2=Petal.Length)) + 
+  geom_point() +
+  xlab("Sepal length") +
+  ylab("Sepal width")
+
+ggplotly(p)
+
+```
+
+#### Box plot
+
+```{r}
+#| label: plotly-box
+p <- iris |>
+  pivot_longer(cols = -Species) |>
+  ggplot(aes(y=value, x=name, fill=Species)) +
+  geom_boxplot(position = position_dodge2(preserve = "single")) + 
+  labs(y = "cm", x="") 
+
+ggplotly(p) |> 
+  layout(boxmode = "group")
+```
+
+#### Histogram
+
+```{r}
+#| label: plotly-hisst
+p <- ggplot(iris, aes(x=Sepal.Length, fill=Species)) +
+  geom_histogram()
+
+ggplotly(p)
+```
+:::

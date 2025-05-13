@@ -1,0 +1,109 @@
+
+```{r}
+#| echo: false
+#| output: false
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(patchwork)
+```
+
+
+
+### Time series
+
+Using the [tsibble](https://tsibble.tidyverts.org/) and [feasts](https://feasts.tidyverts.org/) libraries, many plots related to time series analysis can easily be created. Below is an example of a plot of a time series.
+
+```{r}
+# Time series libraries
+library(tsibble)
+library(feasts)
+```
+
+
+::: panel-tabset
+
+
+#### Standard
+
+```{r}
+#| label: ts-standard
+
+air_pas <-  as_tsibble(AirPassengers)
+
+air_pas |> 
+  autoplot() + 
+  ylab("Air passengers (in thousands)") + 
+  xlab("") +  
+  ggtitle("Monthly international air passengers 1949-1960")
+```
+
+
+#### Season
+
+Two useful plots for inspecting seasonal changes can be seen below.
+
+```{r fig.height=8}
+#| label: ts-season
+
+p_seas <- gg_season(air_pas, labels = "right", labels_repel = TRUE)
+p_sub <- gg_subseries(air_pas)
+
+p_seas / p_sub #plots combined through patchwork (library) 
+```
+
+
+#### Decomposition
+
+A plot of a time series decomposition can also be displayed as follows. Here STL is used. The trend and seasonal windows are determined automatically for this example.
+
+```{r}
+#| label: ts-decomp
+
+air_pas.stl <- air_pas |>
+  mutate(value = log(value)) |> # Log series since seasonality seems multiplicative with trend
+  model(
+    STL(value ~ trend() + season())) # The windows for trend and seasonality are automatically determined for this example
+  
+air_pas.stl |>
+  components() |>
+  autoplot() + labs(title = "STL decomposition of log(AirPassengers)")
+
+```
+
+
+#### Residual
+
+A plot for autocorrelation and partial autocorrelation can easily be made from a series. Note that the remainder seems to show some heteroscedasticity and as a result probably isn't stationary.
+
+```{r}
+#| label: ts-residual
+
+air_pas.stl |>
+  components() |>
+  gg_tsdisplay(y = remainder, plot_type = 'partial')
+
+```
+
+#### Forecast
+
+Forecasts with accompanying confidence intervals can be displayed and estimated with the library [fable](https://fable.tidyverts.org/). Set `level` to change the confidence intervals, with `NULL` for no intervals or a list of numbers representing the percentages. Defaults to `levels=c(80,95)`.
+
+```{r}
+#| label: ts-forecast
+
+library(fable)
+ts <- tsibbledata::aus_production |> 
+  select(Electricity) 
+
+fit <- ts |>
+  model( ARIMA(Electricity), ETS(Electricity))
+
+fit |> 
+  forecast(h="5 years") |> 
+  autoplot(ts |> filter(Quarter > yearquarter("1995 Q1")), level=c(80, 95, 99)) + 
+  facet_grid(.model ~ .)
+```
+
+
+:::

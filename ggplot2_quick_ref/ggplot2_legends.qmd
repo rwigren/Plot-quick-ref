@@ -1,0 +1,100 @@
+
+
+```{r}
+#| output: false
+#| echo: false
+
+library(ggplot2)
+```
+
+
+
+### Legends
+
+Lorem ipsum
+
+Many of these options are advised to be set on a theme basis rather than individual basis, however, here they are set on an individual basis to show more examples within a small space.
+
+::: panel-tabset
+#### Position
+
+-   `guide_legend` and `guide_colorbar` are used in conjunction with `guides()` to specify aspects of legend guides ([Legend reference](https://ggplot2.tidyverse.org/reference/guide_legend.html), [Colorbar reference](https://ggplot2.tidyverse.org/reference/scale_colour_continuous.html)). Here are some of the arguments:
+    -   `position`: Position of the legend relative to the chart. One of `"top"`, `"right"`, `"bottom"`, `"left"` or `"inside"`
+    -   `order` (integer): Order in which the guides are shown.
+    -   `ncol`/`nrow`: Sets number of columns or rows of legend items (only guide_legend)
+    -   `direction`: Direction of the legend (`horizontal` or `vertical`)
+
+
+
+ - `legend.position`: Default position of the legends
+
+
+
+
+```{r}
+#| label: legend-1
+p <- mtcars |> 
+  ggplot(aes(x=mpg, y=wt, color=hp, shape=as.factor(gear), size=disp, fill = as.factor(cyl))) +
+  geom_point() +
+  guides(
+    color = guide_colorbar(position = "top", order = 1),
+    
+    shape = guide_legend(position = "inside", direction = "horizontal"),
+    
+    size = guide_legend(position = "top", ncol = 2, order = 2),
+    
+    fill = guide_legend(position = "inside")
+  ) + 
+  scale_size_binned(range = c(1, 8), n.breaks = 8) +
+  theme(legend.position.inside = c(0.8, 0.8))
+p
+```
+
+#### Justification
+
+ - `legend.position.inside`: Legend position when ... is set to inside. (c(a, b))
+ - `legend.justification`: 
+legend.box.just = "top",
+legend.box = "horizontal"
+
+```{r}
+p  +
+  theme(legend.position.inside = NULL,
+        legend.justification = "left",
+        legend.justification.inside = c("right","top"),
+        
+        legend.box.background = element_rect(fill="gray"),
+        legend.box.margin = unit(2, "mm"),
+        legend.box.just = c("center", "bottom"),
+        legend.box = "horizontal")
+```
+
+
+
+#### Size and text
+
+-   `legend.title.position` can be set to one of `"top"`, `"bottom"`, `"left"`, `"right"`
+-   `legend.title` can be set with `element_text(options)`. See 
+-   `legend.text` Options for the key-text. Can be set with `element_text(options)`.
+-   `legend.text.position` The position of the text relative to the keys. One of `"top"`, `"bottom"`, `"left"`, `"right"`
+
+```{r}
+mtcars |> 
+  ggplot(aes(x=mpg, y=wt, color=hp, shape=as.factor(gear), size=disp)) +
+  geom_point() +
+  guides(
+    color = guide_colorbar(position = "top",
+                           theme = theme(legend.key.width = unit(1, "null"),
+                                         legend.title.position = "top",
+                                         legend.title = element_text(hjust = .5, size=15))),
+    
+    shape = guide_legend(theme = theme(legend.text.position = "left")),
+    
+    size = guide_legend(theme = theme(legend.text.position = "top"))
+  ) + 
+  labs(color= "Centered and enlarged legend title")
+  
+```
+
+
+:::

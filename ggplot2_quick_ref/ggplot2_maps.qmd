@@ -1,0 +1,123 @@
+```{r}
+#| echo: false
+#| output: false
+library(ggplot2)
+library(dplyr)
+```
+
+
+### Maps
+
+ggplot2 makes it easy to plot maps with [simple features](https://en.wikipedia.org/wiki/Simple_Features) data through `geom_sf()`. SF maps can be directly accessed through e.g.:
+* [rnaturalearth](https://github.com/ropensci/rnaturalearth): R interface for the [Natural earth dataset](https://www.naturalearthdata.com/)
+* [GiscoR](https://ropengov.github.io/giscoR/): R interface/API for [Eurostat GISCO](https://ec.europa.eu/eurostat/web/gisco)
+
+Otherwise, the R package [sf](https://r-spatial.github.io/sf/) contains tools for working with of SF data and also converting some data types to SF (see https://r-spatial.github.io/sf/articles/sf2.html).
+
+
+In these examples we will use `rnaturalearth` to obtain map data and join it with other data.
+
+:::panel-tabset
+
+
+#### Africa
+Continents or countries can be obtained separately with `rnaturalearth` and, depending on the continent, used as is. Here the map data from Africa is obtained and joined with data from the [gapminder data set](https://github.com/jennybc/gapminder).
+
+Both data sets support the [ISO 3166-1 alpha-3](https://www.iso.org/iso-3166-country-codes.html) naming standard and can as a result easily be combined. 
+
+```{r}
+#| label: map-selection
+library(rnaturalearth)
+library(gapminder) # Data used in the example
+afr_map <- ne_countries(continent = "Africa") |> 
+  select(iso_a3)
+
+
+gapm <- gapminder |> 
+  filter(year==2007 & continent == "Africa") |>
+  left_join(country_codes) |> 
+  select(iso_alpha, lifeExp)
+
+
+afr_map  |> 
+  left_join(gapm, by=join_by(iso_a3 == iso_alpha)) |> 
+  ggplot(aes(fill=lifeExp)) +
+  geom_sf() +
+  labs(title = "Life expectancy 2007", fill = "Years")
+
+
+
+```
+
+#### Europe
+
+Given that some countries in Europe have overseas territory, e.g. Guadeloupe and the Falkland islands, a map of the continent might need coordinate adjustments. Here we adjust the longitude and latitude displayed through `coord_sf()` and do not filter out non-European landmasses.
+
+
+```{r}
+#| label: map-coordinates
+
+world_map <- ne_countries(scale = "medium") |> 
+  select(name) 
+eu_gdppc <- read.csv("./data/eu_gdppc_proc.csv") # Data from Eurostat
+
+world_map |>
+  left_join(eu_gdppc, by=join_by(name == geo)) |>
+  filter(name != "Denmark") |>
+
+    ggplot(aes(fill = X2024)) +
+    geom_sf() +
+    coord_sf(xlim=c(-25, 37), ylim=c(30, 70)) +
+    labs(fill = "", title = "GDP per capita 2024") +
+    scale_fill_distiller(palette = "OrRd", direction=1)
+
+```
+
+#### Point maps
+For point or bubble maps either `geom_point()` or `geom_sf()` can be used depending on the data used. Here the `sf` package is used to calculate centroids of the countries and `geom_sf()` to plot them. Points are also manually inserted and added to the plot to show `geom_point()` functionality.
+Note that these points represent latitude and longitude in the default projection.
+
+```{r}
+#| label: map-points
+# Spherical geometry needs to be turned off for calculating centroids for this data set
+sf::sf_use_s2(FALSE) 
+afr_map <- ne_countries(continent = "Africa") |> 
+  select(iso_a3) |> 
+  mutate(centroid = sf::st_centroid(geometry))
+sf::sf_use_s2(TRUE)
+
+gapm <- gapminder |> 
+  filter(year==2007 & continent == "Africa") |>
+  left_join(country_codes) |> 
+  select(iso_alpha, lifeExp)
+
+mypoints <- data.frame(x=c(50, 45, 44, 45, 46, 47, 48, 49, 50, 51), 
+                       y=c(30, 30, 25, 24, 23.2, 23, 23, 23.2, 24, 25))
+
+afr_map  |> 
+  left_join(gapm, by=join_by(iso_a3 == iso_alpha)) |> 
+  ggplot() +
+  geom_sf() +
+  # Centroids are added to the plot
+  geom_sf(aes(geometry = centroid, color=lifeExp), alpha=0.8, size = 5) + 
+  # Manual points are added to the plot
+  geom_point(data = mypoints, aes(x, y)) +
+  labs(title = "Life expectancy 2007", color="Years", x="", y="")
+
+```
+#### Projections
+I do not currently possess the knowledge of the framework to go into depth, however, coordinate reference systems (CRS) of the map can be changed. Here is a very simple example using the EPSG:3035 CRS.
+
+```{r}
+#| label: map-CRS
+eur_map <- ne_countries() |> 
+  select(name)
+
+ggplot(eur_map) +
+  geom_sf() +
+  coord_sf(crs = sf::st_crs("epsg:3035"))
+```
+
+
+
+:::

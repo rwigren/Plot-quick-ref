@@ -1,7 +1,5 @@
 ---
 title: "Seaborn quick reference"
-format: html
-jupyter: python3
 ---
 
 # Plots
@@ -9,7 +7,6 @@ jupyter: python3
 
 
 ```{python}
-import numpy as nps
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -37,7 +34,8 @@ plt.show()
 
 Seaborn has a default function for generatinog a pairplot. See [PairGrid](https://seaborn.pydata.org/generated/seaborn.PairGrid.html) for a more customizable option. 
 ```{python}
-g = sns.pairplot(penguins, hue='species')
+sns.pairplot(penguins, hue='species')
+plt.show()
 ```
 
 
@@ -125,7 +123,7 @@ sns.move_legend(g, 'lower center', bbox_to_anchor=(0.5,1), ncol=3, frameon=False
 ```
 
 
-## Themes
+# Themes
 Themes can be set with the `sns.set_theme(style='chosen_theme')`, with the built in options `'darkgrid'` (default), `'dark'`, `'whitegrid'`, `'white'` and `'ticks'`. Pallette and font type can also be set in the function. 
 ```{python}
 im = plt.imread("./images/seaborn_themes.png")
@@ -134,4 +132,30 @@ fig, ax = plt.subplots(figsize=(14, 7))
 ax.imshow(im)
 plt.axis('off')
 plt.show()
+```
+
+
+
+
+## Palettes
+Palettes can be set either in the plot function or in a `with` clause. By default, Seaborn supports [matplotlib's](https://matplotlib.org/stable/gallery/color/colormap_reference.html) and [ColorBrewer's](https://colorbrewer2.org) color palettes, however, own palettes can also be created.
+
+
+For more information see e.g. [color palette tutorial](https://seaborn.pydata.org/tutorial/color_palettes.html).
+
+```{python}
+fig, axes = plt.subplots(ncols=2)
+fig.set_figheight(4)
+
+with sns.color_palette('Set2', 3):
+    sns.scatterplot(penguins, ax=axes[0], x='bill_length_mm', y='bill_depth_mm', hue='species', )
+
+sns.scatterplot(penguins, ax=axes[1], x='bill_length_mm', y='bill_depth_mm', hue='species', palette=sns.color_palette('Accent', 3))
+plt.show()
+```
+
+Custom color palettes can be made with a sequence of colors in any format accepted by [matplotlib](https://matplotlib.org/stable/users/explain/colors/colors.html). For example, hexadecimal RGB notation can be seen below.
+
+```{python}
+sns.color_palette(["#D00000", "#00D000", "#0000D0", "#C0C000", "#00C0C0", "#C000C0"])
 ```

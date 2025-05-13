@@ -1,6 +1,9 @@
 project:
   type: website
   output-dir: docs
+  render: 
+    - ggplot2_quick_ref.qmd
+    - seaborn_quick_ref.qmd
 
 website:
   title: "Plot quick reference"
@@ -18,6 +21,18 @@ format:
   html:
     theme: cosmo
     css: styles.css
+    
     toc: true
+    toc_float:
+      collapsed: falseS
+    toc_depth: 3
+    
+    fig-width: 8
+    fig-height: 6
+    fig-format: png
 
 
+knitr: 
+  opts_chunk: 
+    warning: false
+    message: false

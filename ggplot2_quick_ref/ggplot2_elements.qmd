@@ -1,0 +1,141 @@
+
+
+```{r}
+#| echo: false
+#| output: false
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(patchwork)
+```
+
+
+### Elements
+
+The elements `element_line()`, `element_rect()`, `element_text()` and `element_blank()` are used in many of the attributes of the theme to set visuals of non-data components. Below are the attributes of each element type and some simple examples. For further information see [Reference](https://ggplot2.tidyverse.org/reference/element.html).
+
+```{r}
+#| echo: false
+theme_element_example <- function() {
+  theme_gray() + theme(axis.title = element_blank(), axis.ticks = element_blank(), axis.text = element_blank())
+}
+
+```
+
+::: panel-tabset
+
+#### Line
+
+`element_line()` is used to specify lines and has the following arguments:
+
+- `color`/`colour`: Color of the line
+- `linewidth`: Line width in mm
+- `linetype`: Type pf line (e.g. solid, dashed, etc.). Integer in (0, 8), a string (blank, solid, dashed, dotted, dotdash, longdash, twodash) or a custom sequence of hexadecimal numbers defined through a string, e.g. `"3121"` (see [reference](https://ggplot2.tidyverse.org/reference/aes_linetype_size_shape.html) for more information) 
+- `lineend`: Line end type. One of `"butt"`, `"round"` or `"square"`
+- `arrow`: An arrow from `grid::arrow()` (see [documentation](https://stat.ethz.ch/R-manual/R-devel/library/grid/html/arrow.html) for more information)
+
+In this example `geom_segment()` is used to show the different options, however, in theme settings the lines are set with `attribute = element_line(options)`
+
+```{r}
+df <- tibble(x=0, xend=10, y=5:1)
+options <- list(linewidth = 2, color = "blue", linetype = 2, lineend = "round", arrow=arrow())
+descr <- c("Line width = 2", 'color = "blue"', "linetype = 2 (dashed)", "lineend = round", "arrow = arrow()")
+
+
+p <- ggplot(mapping = aes(linewidth=4, x=x, xend=xend, y=y, yend=y))
+
+for (i in 1:5){
+  p <- p + do.call({function(...) geom_segment(data = df[i,], ...)}, options[i])
+  p <- p + annotate("text", x=5, y=6.2-i, label=descr[i])
+}
+
+p + ylim(0, 6) + xlim(-1, 11) + guides(linewidth="none") + theme_element_example()
+  
+```
+
+#### Rectangle
+
+The rectangle element `element_rect()` is a rather simple element with the following arguments:
+
+- `fill`: Color to fill rectangle with.
+- `color`/`colour`: Color of the border.
+- `linewidth`: Width of the border line in mm.
+- `linetype`: line type of the border.
+
+```{r, fig.height=3}
+
+(ggplot() + 
+   theme(panel.background = 
+           element_rect(fill = "orange",
+                        color= "cyan",
+                        linewidth=3,
+                        linetype="dashed")) +
+   ggtitle("Square with dashed line")) +
+
+(ggplot() + 
+   theme(panel.background = 
+           element_rect(fill = alpha("red", 0.4),
+                        linewidth=NULL)) +
+   ggtitle("No line and alpha = 0.4"))
+
+
+```
+
+#### Text
+
+`element_text()` is used to specify the theme of the text and has the following arguments:
+
+- `family`: Font family, e.g (`"Times new roman"`, `"Calibri"`)
+- `face`: `"plain"`, `"bold"`, `"italic"`, or `"bold.italic"`.
+- `color`/`colour`: Color of the text.
+- `size`: Size of text in pts.
+- `hjust`: Horizontal justification of text. One of `"left"`, `"center"`, `"right"` or $\in [0, 1]$ (left = 0, center = 0.5, right = 1, etc.).
+- `vjust`: Vertical justification of text. One of `"top"`, `"center"`, `"bottom"` or $\in [0, 1]$ (bottom = 0, center = 0.5, top = 1, etc.)
+- `angle`: Angle of text in degrees.
+- `lineheight`: Height between rows in multi-line text.
+- `margin`: Margin around text. Defined with `margin(t, r, b, l, unit="pt")` (letters stand for top, right, bottom and left margins).
+
+Examples are shown with `annotate()` where the attributes can be set directly, however, in theme settings they are set with `attribute = element_text(options)`.
+
+```{r, fig.height=3}
+library(extrafont) 
+
+# Warning! Ugly code.
+p1 <- ggplot() + theme_element_example() +
+  ggtitle("hjust/vjust")  +
+  xlim(0,5) + ylim(0,5) +
+  geom_vline(xintercept = 2.5, alpha=0.3) + 
+  geom_hline(yintercept = 1, alpha=0.3) + 
+  annotate("text", x = 2.5, y=4.5, label='hjust = "right"', size = 6, hjust="right") +
+  annotate("text", x = 2.5, y=3.5, label='hjust = "center"', size = 6, hjust="center") +
+  annotate("text", x = 2.5, y=2.5, label='hjust = "left"', size = 6, hjust="left") +
+  annotate("text", x = 0.7, y=1, label='vjust = "bottom"', size = 4.5, vjust="bottom") +
+  annotate("text", x = 2.5, y=1, label='vjust = "center"', size = 4.5, vjust="center") +
+  annotate("text", x = 4.3, y=1, label='vjust = "top"', size = 4.5, vjust="top") 
+
+p2 <- ggplot() + theme_element_example() +
+  ggtitle("Other") +
+  xlim(0,5) + ylim(0,5) +
+  annotate("text", x=1, y=4, size=6, label="Line height is\n equal to 1", lineheight=1) +
+  annotate("text", x=1, y=1.5, size=6, label="Line height is\n equal to 2", lineheight=2) +
+  annotate("text", x=3.8, y=4.5, size=6, label="Times New Roman", family="Times New Roman") + 
+  annotate("text", x=4, y=3.5, size=6, label="Blue text", color = "blue") +
+  annotate("text", x=4, y=2.5, size=6, label="Bold text", fontface = "bold") +
+  annotate("text", x=4, y=1, size=6, label="Rotated text", angle=30)
+
+# Combine plots
+p1 + p2
+
+```
+
+#### Blank
+
+`element_blank()` is used to exclude attributes of being displayed. In the below example the axis text and grid lines are removed, however, most attributes can be removed. 
+
+```{r fig.height=5}
+ggplot(iris, aes(Petal.Length, Petal.Width, color=Species)) +
+  geom_point() +
+  theme(axis.text = element_blank(), panel.grid = element_blank())
+```
+
+:::

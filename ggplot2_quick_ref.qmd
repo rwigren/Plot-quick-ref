@@ -1,33 +1,18 @@
 ---
 title: "ggplot2 quick reference"
-format:
-  html:
-    toc: true
-    toc_float:
-      collapsed: false
-    toc_depth: 3
 ---
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(dev = 'svg',       # set output to svg
-                      warning = FALSE, 
-                      message = FALSE,
-                      fig.width=8, 
-                      fig.height=6,
-                      fig.align = 'left')
-```
 
 
 [ggplot2](https://ggplot2.tidyverse.org/) is a declarative system for making graphics in R based on [The Grammar of Graphics](https://link.springer.com/book/10.1007/0-387-28695-0). This document contains plots made in ggplot2 and some information about theming in ggplot2 to use as reference. It is meant to help learn/renew skills and as a reference for some less standard plots (e.g. time series plots with feats/fable).
 
 Posit upholds a [cheat sheet](https://posit.co/wp-content/uploads/2022/10/data-visualization-1.pdf) for ggplot2, which shows most of its methods in a compact manner.
 
-
-## Plots
-
+## Plot examples
 
 ```{r}
 library(ggplot2)
+
+# Data structure and manipulation libraries
 library(dplyr)
 library(tidyr)
 
@@ -41,11 +26,10 @@ library(patchwork)
 You can separate data on `color`, `shape` and `size`. `alpha` can be used to make plots more readable when many data points are present. `position="jitter"` is useful in cases of discrete positions in data.
 
 ::: panel-tabset
-
-
 #### Standard
 
-```{r fig.align='left'}
+```{r}
+#| label: scatter-standard
 ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, color=Species)) + 
   geom_point(size = 4) +
   xlab("Sepal length") +
@@ -54,9 +38,10 @@ ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, color=Species)) +
 
 #### Alpha
 
-Using alpha basically turns the plot into a 2d kernel density estimate (with a circular uniform kernel), which can be useful where points are densly packed.
+Using alpha basically turns the plot into a 2d kernel density estimate (with a circular uniform kernel), which can be useful where points are densely packed.
 
 ```{r fig.height=4, fig.width=8}
+#| label: scatter-alpha
 n <- 1000
 R <- matrix(c(1, .5, 0, 0,
               .5, 1, 0, 0,
@@ -67,7 +52,7 @@ R <- matrix(c(1, .5, 0, 0,
 mu = c(X1=0, X2=0, Y1=-1, Y2=-1)
 data = mvtnorm::rmvnorm(n, mean=mu, sigma=R )
 
-df <- tibble(Class="C1", x = data[,"X1"], y=data[, "X2"]) %>% 
+df <- tibble(Class="C1", x = data[,"X1"], y=data[, "X2"]) |> 
         bind_rows(
           tibble(Class="C2", x = data[,"Y1"], y=data[, "Y2"])
         )
@@ -86,9 +71,10 @@ p1 + p2
 
 #### Jitter
 
-Example taken from [ggplot2 reference](https://ggplot2.tidyverse.org/reference/geom_jitter.html). Shows the same data with and without jitter. Another option for categorical scatter plots is the [beeswarm plot](https://r-graph-gallery.com/beeswarm.html), which separates the points in a systematic way rather than random. 
+Example taken from [ggplot2 reference](https://ggplot2.tidyverse.org/reference/geom_jitter.html). Shows the same data with and without jitter. Another option for categorical scatter plots is the [beeswarm plot](https://r-graph-gallery.com/beeswarm.html), which separates the points in a systematic way rather than random. s
 
 ```{r fig.height=4, fig.width=8}
+#| label: scatter-jitter
 p1 <- ggplot(mpg, aes(cyl, hwy)) + 
   geom_point()
 
@@ -97,12 +83,12 @@ p2 <- ggplot(mpg, aes(cyl, hwy)) +
 
  p1 + p2
 ```
-
 :::
 
 A pair-wise plot can quite easily be made with the library [GGally](https://ggobi.github.io/ggally/). The diagonal and the upper and lower triangle each have a default plot type for continuous, discrete and combo (discrete on one axis and continuous on the other). These can be changed in the method, see `ggpairs()` documentation for more information.
 
 ```{r}
+#| label: scatter-pair
 library(GGally)
 ggpairs(iris, columns = 1:4, aes(color=Species, fill=Species),
         diag = list(continuous = wrap("densityDiag", alpha=0.6)))
@@ -116,8 +102,9 @@ Bar plots can be used either through `geom_bar()`, which counts the number of in
 #### geom_bar()
 
 ```{r}
-iris %>% 
-  filter(Sepal.Length > 5) %>% 
+#| label: bar1
+iris |> 
+  filter(Sepal.Length > 5) |> 
   
   ggplot(aes(x=Species, fill=Species)) +
   geom_bar() +
@@ -127,10 +114,11 @@ iris %>%
 #### geom_col()
 
 ```{r}
-iris %>% 
-  group_by(Species) %>% 
-  summarise_all(mean) %>% 
-  pivot_longer(-Species, values_to = "Mean") %>%
+#| label: bar2
+iris |> 
+  group_by(Species) |> 
+  summarise_all(mean) |> 
+  pivot_longer(-Species, values_to = "Mean") |>
   
   ggplot(aes(x=name, y=Mean, fill=Species)) +
   geom_col(position = "dodge2") +
@@ -146,6 +134,7 @@ Default position is `"stack"`. Use position `"identity"` for overlapping histogr
 #### Stack
 
 ```{r}
+#| label: hist-stack
 ggplot(iris, aes(x=Sepal.Length, fill=Species)) +
   geom_histogram()
 
@@ -154,6 +143,7 @@ ggplot(iris, aes(x=Sepal.Length, fill=Species)) +
 #### Identity
 
 ```{r}
+#| label: hist-overlap
 ggplot(iris, aes(x=Sepal.Length, fill=Species)) +
   geom_histogram(position="identity", alpha=0.5)
 
@@ -164,29 +154,37 @@ ggplot(iris, aes(x=Sepal.Length, fill=Species)) +
 
 Boxplots are straight forward to generate. Below you can see two examples. Interquartile range can be changed through `coef` which defaults to 1.5.
 
+::: panel-tabset
+#### Standard
 ```{r}
+#| label: box-standard
 ggplot(iris, aes(x=Sepal.Length, y=Species, fill=Species)) +
   geom_boxplot()
 ```
 
+#### Grouped
 Grouped example of box plots. Position defaults to `"dodge2"`.
 
 ```{r}
-iris %>%
-  pivot_longer(cols = -Species) %>%
+#| label: box-grouped
+iris |>
+  pivot_longer(cols = -Species) |>
   ggplot(aes(y=value, x=name, fill=Species)) +
   geom_boxplot() + 
   labs(y = "cm", x="")
 ```
 
+:::
+
 ### Distribution plots
 
-The `geom_density()` function takes data and runs a kernel density estimation. `kernel` can be set to one of `"gaussian"`, `"rectangular"`, `"triangular"`, `"epanechnikov"`, `"biweight"`, `"cosine"` or `"optocosine"` with `kernel = "gaussian"` as default. ... defaults to `position=identity`, other options for this is `stack` which stacks the densities on top of each other and potentially `fill` (one should however be careful and fully aware of what is displayed when using the latter option).
+The `geom_density()` function takes data and runs a kernel density estimation. `kernel` can be set to one of `"gaussian"`, `"rectangular"`, `"triangular"`, `"epanechnikov"`, `"biweight"`, `"cosine"` or `"optocosine"` with `kernel = "gaussian"` as default. Defaults to `position=identity`, other options for this is `stack` which stacks the densities on top of each other and potentially `fill` (one should however be careful and fully aware of what is displayed when using the latter option).
 
 ::: panel-tabset
 #### Identity
 
 ```{r}
+#| label: kde-standard
 ggplot(iris, aes(x=Sepal.Length, color=Species, fill = Species)) +
   geom_density(alpha=0.6) +
   xlim(bounds=c(4, 8.5))
@@ -195,24 +193,28 @@ ggplot(iris, aes(x=Sepal.Length, color=Species, fill = Species)) +
 #### Stack
 
 ```{r}
+#| label: kde-stacked
 ggplot(iris, aes(x=Sepal.Length, color=Species, fill = Species)) +
   geom_density(position="stack", alpha=0.8) +
   xlim(bounds=c(4, 8.5))
 ```
-:::
 
+#### Faceted
 For separated distribution plots we can use `facet_grid()`, which creates a grid according to given rules of data. Given data frame column names C1 and C2 the data can be faceted according to: `C1 ~ .` for rows, `. ~ C1` for columns and `C1 ~ C2` for a grid. `rows=vars(C1)` and `cols=vars(C2)` can be used instead.
 
 ```{r}
+#| label: kde-faceted
 ggplot(iris, aes(x=Sepal.Length, fill=Species, color=Species)) +
   geom_density(show.legend = F, alpha=0.8) + 
   facet_grid(Species ~ .) +
   xlim(c(4,8.5))
 ```
 
+#### Flipped
 Borrowed example from [The R Graph Gallery](https://r-graph-gallery.com/294-basic-ridgeline-plot.html#color) with axis flipped. In my opinion, this is a better option than the very similar violin plot when many distributions are to be shown in comparison to each other. Note that this uses the library [ggridges](https://github.com/wilkelab/ggridges) to create a "ridgeline plot" (faceted distribution plot with height able to overlap the above distribution). More information on these might be added later.
 
 ```{r fig.width=10, fig.height=5}
+#| label: kde-ridge
 library(ggridges)
 
 ggplot(lincoln_weather, aes(x = `Mean Temperature [F]`, y = Month, fill = stat(x))) +
@@ -220,119 +222,27 @@ ggplot(lincoln_weather, aes(x = `Mean Temperature [F]`, y = Month, fill = stat(x
   scale_fill_viridis_c(name = "Temp. [F]", option = "C") +
   coord_flip()
 ```
+:::
 
-### Time series {#ts}
 
-Using the [tsibble](https://tsibble.tidyverts.org/) and [feasts](https://feasts.tidyverts.org/) libraries, many plots related to time series analysis can easily be created. Below is an example of a plot of a time series.
+{{< include ./ggplot2_quick_ref/ggplot2_time_series.qmd >}}
 
-```{r}
-# Time series libraries
-library(tsibble)
-library(feasts)
 
-air_pas <-  as_tsibble(AirPassengers)
+{{< include ./ggplot2_quick_ref/ggplot2_maps.qmd >}}
 
-air_pas %>% 
-  autoplot() + 
-  ylab("Air passengers (in thousands)") + 
-  xlab("") +  
-  ggtitle("Monthly international air passengers 1949-1960")
-```
-
-Two useful plots for inspecting seasonal changes can be seen below.
-
-```{r fig.height=8}
-p_seas <- gg_season(air_pas, labels = "right", labels_repel = TRUE)
-p_sub <- gg_subseries(air_pas)
-
-p_seas / p_sub #plots combined through patchwork (library) 
-```
-
-A plot of a time series decomposition can also be displayed as follows. Here STL is used. The trend and seasonal windows are determined automatically for this example.
-
-```{r}
-air_pas.stl <- air_pas %>%
-  mutate(value = log(value)) %>% # Log series since seasonality seems multiplicative with trend
-  model(
-    STL(value ~ trend() + season())) # The windows for trend and seasonality are automatically determined for this example
-  
-air_pas.stl %>%
-  components() %>%
-  autoplot() + labs(title = "STL decomposition of log(AirPassengers)")
-
-```
-
-A plot for autocorrelation and partial autocorrelation can easily be made from a series. Note that the remainder seems to show some heteroscedasticity and as a result probably isn't stationary.
-
-```{r}
-air_pas.stl %>%
-  components() %>%
-  gg_tsdisplay(y = remainder, plot_type = 'partial')
-
-```
-
-Forecasts with accompanying confidence intervals can be displayed and estimated with the library [fable](https://fable.tidyverts.org/). Set `level` to change the confidence intervals, with `NULL` for no intervals or a list of numbers representing the percentages. Defaults to `levels=c(80,95)`.
-
-```{r}
-library(fable)
-ts <- tsibbledata::aus_production %>% 
-  select(Electricity) 
-
-fit <- ts %>%
-  model( ARIMA(Electricity), ETS(Electricity))
-
-fit %>% 
-  forecast(h="5 years") %>% 
-  autoplot(ts %>% filter(Quarter > yearquarter("1995 Q1")), level=c(80, 95, 99)) + 
-  facet_grid(.model ~ .)
-```
 
 ## Interactive charts
 
-Plots from ´ggplot2´ can be turned into interactive plots through the library [plotly](https://github.com/plotly/plotly.py), usually with the ease of "plug and play". Here are a few examples of some interactive charts using the method.
+{{< include ./ggplot2_quick_ref/ggplot2_plotly.qmd >}}
 
-::: panel-tabset
-#### Scatter plot
 
-```{r}
-library(plotly)
-p <- ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, color=Species, size = Petal.Length )) + 
-  geom_point() +
-  xlab("Sepal length") +
-  ylab("Sepal width")
-
-ggplotly(p)
-
-```
-
-#### Box plot
-
-```{r}
-p <- iris %>%
-  pivot_longer(cols = -Species) %>%
-  ggplot(aes(y=value, x=name, fill=Species)) +
-  geom_boxplot(position = position_dodge2(preserve = "single")) + 
-  labs(y = "cm", x="") 
-
-ggplotly(p) %>% 
-  layout(boxmode = "group")
-```
-
-#### Histogram
-
-```{r}
-p <- ggplot(iris, aes(x=Sepal.Length, fill=Species)) +
-  geom_histogram()
-
-ggplotly(p)
-```
-:::
 
 ## Theme settings
 
 ggplot2 comes with a couple of themes to choose from, which are displayed below (`theme_gray()`,`theme_minimal()`,`theme_bw()`,`theme_classic()`,`theme_dark()`,`theme_light()`). Custom themes can also be set up, see e.g. [Learning to create custom themes in ggplot](https://rpubs.com/mclaire19/ggplot2-custom-themes) for a tutorial. Custom themes might be added to this document at a later date.
 
 ```{r}
+#| label: theme-defaults
 p1 <- ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, color=Species)) + 
   geom_point(show.legend = F) +
   xlab("Sepal length") +
@@ -347,50 +257,46 @@ p1 <- ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, color=Species)) +
 
 ```
 
-### Colors
 
-Color palettes can be defined through lists of either default colors supported in ggplot2 or through the colors RGB representation. They can also be named in cases where matches between specific groups and colors are desired.
+{{< include ./ggplot2_quick_ref/ggplot2_palettes.qmd >}}
 
-```{r fig.height=4, fig.width=10}
-my_palette1 <- c('purple', 'orange', 'aquamarine3')
-my_palette2 <- c('virginica' = '#FF0000', 'setosa' = '#00FF00', 'versicolor' = '#0000FF') # Fully Red, Green, Blue in RGB notation
 
-p1 <- ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, color=Species)) + 
-  geom_point() +
-  xlab("Sepal length") +
-  ylab("Sepal width") 
+{{< include ./ggplot2_quick_ref/ggplot2_legends.qmd >}}
 
-(p1 + scale_color_manual(values = my_palette1)) +
-  (p1 + scale_color_manual(values = my_palette2))
 
-```
+{{< include ./ggplot2_quick_ref/ggplot2_elements.qmd >}}
 
-Here are some examples of color palettes from the [ColorBrewer set](https://colorbrewer2.org). These can easily be used with ggplot through the function `scale_colour_brewer(palette = "palette name")`. Further palettes can be acquired from the R package [Paletteer](https://emilhvitfeldt.github.io/paletteer/) which contains more than 2000 color palettes, including continuous palettes, and functions for simple use with ggplot.
 
-::: panel-tabset
-#### Qualitative
 
-The qualitative colors of the Colorbrewer set are shown below. These are useful for distinguishing between different groups of data. For example, the different flower species in the iris data set.
 
-```{r}
-library(RColorBrewer)
-display.brewer.all(type='qual')
-```
 
-#### Sequential
 
-Below are the sequential colors of the Colorbrewer set, useful for ordered data visualizations such as heat maps.
 
-```{r fig.height=9}
-display.brewer.all(type='seq')
 
-```
 
-#### Diverging
 
-The diverging colors diverge in two directions from a central color, emphasizing a mid-range value and/or the extremes. Useful for comparisons in relation to a chosen value/group or for loose groupings of ordered data.
 
-```{r}
-display.brewer.all(type='div')
-```
-:::
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

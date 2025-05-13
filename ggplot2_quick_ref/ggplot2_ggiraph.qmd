@@ -1,0 +1,37 @@
+```{r}
+#| echo: false
+#| output: false
+library(ggplot2)
+```
+
+
+### ggiraph
+
+[ggiraph](https://davidgohel.github.io/ggiraph/) is a library that allows the creation of interactive and dynamic ggplot2 graphics. The resulting charts are equipped with a hover-over tooltip, . The library also allows ... such as linked highlighting between grouped charts.
+
+
+
+panning, zooming and selections which can, for example, be used with shiny.
+
+::: panel-tabset
+#### Simple
+
+```{r}
+#| label: ggiraph-scatter
+library(ggiraph)
+g <- iris |> 
+  tibble::rowid_to_column(var = "ID") |> 
+  ggplot(aes(x=Petal.Length, y=Petal.Width, color=Species, 
+             tooltip=paste("Petal length:&nbsp", Petal.Length, "\nPetal width:&nbsp&nbsp", Petal.Width),
+             data_id=ID)) +
+  geom_point_interactive(hover_nearest=TRUE)
+
+
+girafe(ggobj=g) |> 
+  girafe_options(opts_hover(nearest_distance = 30))
+```
+
+
+#### 
+
+:::
