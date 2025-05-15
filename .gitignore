@@ -3,4 +3,6 @@
 /.quarto/
 .Rhistory
 Plot-quick-ref.Rproj
+/ggplot2_quick_ref_cache/
+/ggplot2_quick_ref_files/
 data/
