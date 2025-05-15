@@ -9,8 +9,9 @@ library(dplyr)
 ### Maps
 
 ggplot2 makes it easy to plot maps with [simple features](https://en.wikipedia.org/wiki/Simple_Features) data through `geom_sf()`. SF maps can be directly accessed through e.g.:
-* [rnaturalearth](https://github.com/ropensci/rnaturalearth): R interface for the [Natural earth dataset](https://www.naturalearthdata.com/)
-* [GiscoR](https://ropengov.github.io/giscoR/): R interface/API for [Eurostat GISCO](https://ec.europa.eu/eurostat/web/gisco)
+
+- [rnaturalearth](https://github.com/ropensci/rnaturalearth): R interface for the [Natural earth dataset](https://www.naturalearthdata.com/)
+- [GiscoR](https://ropengov.github.io/giscoR/): R interface/API for [Eurostat GISCO](https://ec.europa.eu/eurostat/web/gisco)
 
 Otherwise, the R package [sf](https://r-spatial.github.io/sf/) contains tools for working with of SF data and also converting some data types to SF (see https://r-spatial.github.io/sf/articles/sf2.html).
 

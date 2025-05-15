@@ -7,9 +7,7 @@ library(ggplot2)
 
 ### Legends
 
-Legends in ggplot are very customizable in position and theme.  
-
-Many of these options are advised to be set on a theme basis rather than individual basis, however, here they are set on an individual basis to show more examples within a small space.
+Legends in ggplot are very customizable in position and theme. Below are some examples and options reference for customization of legends. I would recommend to set many of these options on a theme basis rather than individual basis, however, here some are set on an individual basis to show more examples within a small space.
 
 ::: panel-tabset
 #### Position
@@ -63,10 +61,10 @@ p  +
         legend.box = "horizontal")
 ```
 
-#### Size and text
+#### Text
 
 -   **legend.title.position**: Legend title position relative to legend. Can be set to one of `"top"`, `"bottom"`, `"left"`, `"right"`
--   **legend.title**: Options for legend title. Can be set with `element_text()` (see [elements](#elements)).
+-   **legend.title**: Options for legend title. Can be set with `element_text()` (see [element_text](#elements)).
 -   **legend.text**: Options for the key-text. Can be set with `element_text()`.
 -   **legend.text.position**: The position of the text relative to the keys. One of `"top"`, `"bottom"`, `"left"`, `"right"`
 
@@ -77,8 +75,7 @@ mtcars |>
   geom_point() +
   guides(
     color = guide_colorbar(position = "top",
-                           theme = theme(legend.key.width = unit(1, "null"),
-                                         legend.title.position = "top",
+                           theme = theme(legend.title.position = "top",
                                          legend.title = element_text(hjust = .5, size=15))),
     
     shape = guide_legend(theme = theme(legend.text.position = "left")),
@@ -93,7 +90,7 @@ mtcars |>
 
 #### Colors and spacing
 
-Background colors and borders for the components of legends can be set with `element_rect()` (see [element](#element)). 
+Background colors and borders for the components of legends can be set with `element_rect()` (see [element_rect](#elements)). 
 The theme options also contain many options for spacing and margins, where spacings can be set with `unit()` and margins with `margin()`
 
 

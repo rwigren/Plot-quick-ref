@@ -28,11 +28,11 @@ theme_element_example <- function() {
 
 `element_line()` is used to specify lines and has the following arguments:
 
-- `color`/`colour`: Color of the line
-- `linewidth`: Line width in mm
-- `linetype`: Type pf line (e.g. solid, dashed, etc.). Integer in (0, 8), a string (blank, solid, dashed, dotted, dotdash, longdash, twodash) or a custom sequence of hexadecimal numbers defined through a string, e.g. `"3121"` (see [reference](https://ggplot2.tidyverse.org/reference/aes_linetype_size_shape.html) for more information) 
-- `lineend`: Line end type. One of `"butt"`, `"round"` or `"square"`
-- `arrow`: An arrow from `grid::arrow()` (see [documentation](https://stat.ethz.ch/R-manual/R-devel/library/grid/html/arrow.html) for more information)
+- **color/colour**: Color of the line
+- **linewidth**: Line width in mm
+- **linetype**: Type pf line (e.g. solid, dashed, etc.). Integer in $[0,8]$, a string (`"blank"`, `"solid"`, `"dashed"`, `"dotted"`, `"dotdash"`, `"longdash"`, `"twodash"`) or a custom sequence of hexadecimal numbers defined through a string, e.g. `"3121"` (see [reference](https://ggplot2.tidyverse.org/reference/aes_linetype_size_shape.html) for more information) 
+- **lineend**: Line end type. One of `"butt"`, `"round"` or `"square"`
+- **arrow**: An arrow from `grid::arrow()` (see [documentation](https://stat.ethz.ch/R-manual/R-devel/library/grid/html/arrow.html) for more information)
 
 In this example `geom_segment()` is used to show the different options, however, in theme settings the lines are set with `attribute = element_line(options)`
 
@@ -58,10 +58,10 @@ p + ylim(0, 6) + xlim(-1, 11) + guides(linewidth="none") + theme_element_example
 
 The rectangle element `element_rect()` is a rather simple element with the following arguments:
 
-- `fill`: Color to fill rectangle with.
-- `color`/`colour`: Color of the border.
-- `linewidth`: Width of the border line in mm.
-- `linetype`: line type of the border.
+- **fill**: Color to fill rectangle with.
+- **color/colour**: Color of the border.
+- **linewidth**: Width of the border line in mm.
+- **linetype**: line type of the border.
 
 ```{r, fig.height=3}
 #| label: element_rect
@@ -87,15 +87,15 @@ The rectangle element `element_rect()` is a rather simple element with the follo
 
 `element_text()` is used to specify the theme of the text and has the following arguments:
 
-- `family`: Font family, e.g (`"Times new roman"`, `"Calibri"`)
-- `face`: `"plain"`, `"bold"`, `"italic"`, or `"bold.italic"`.
-- `color`/`colour`: Color of the text.
-- `size`: Size of text in pts.
-- `hjust`: Horizontal justification of text. One of `"left"`, `"center"`, `"right"` or $\in [0, 1]$ (left = 0, center = 0.5, right = 1, etc.).
-- `vjust`: Vertical justification of text. One of `"top"`, `"center"`, `"bottom"` or $\in [0, 1]$ (bottom = 0, center = 0.5, top = 1, etc.)
-- `angle`: Angle of text in degrees.
-- `lineheight`: Height between rows in multi-line text.
-- `margin`: Margin around text. Defined with `margin(t, r, b, l, unit="pt")` (letters stand for top, right, bottom and left margins).
+- **family**: Font family, e.g (`"Times new roman"`, `"Calibri"`)
+- **face**: `"plain"`, `"bold"`, `"italic"`, or `"bold.italic"`.
+- **color/colour**: Color of the text.
+- **size**: Size of text in pts.
+- **hjust**: Horizontal justification of text. One of `"left"`, `"center"`, `"right"` or $\in [0, 1]$ (left = 0, center = 0.5, right = 1, etc.).
+- **vjust**: Vertical justification of text. One of `"top"`, `"center"`, `"bottom"` or $\in [0, 1]$ (bottom = 0, center = 0.5, top = 1, etc.)
+- **angle**: Angle of text in degrees.
+- **lineheight**: Height between rows in multi-line text.
+- **margin**: Margin around text. Defined with `margin(t, r, b, l, unit="pt")` (letters stand for top, right, bottom and left margins).
 
 Examples are shown with `annotate()` where the attributes can be set directly, however, in theme settings they are set with `attribute = element_text(options)`.
 
@@ -144,4 +144,50 @@ ggplot(iris, aes(Petal.Length, Petal.Width, color=Species)) +
   theme(axis.text = element_blank(), panel.grid = element_blank())
 ```
 
+
 :::
+
+
+### Units and margins {#units-margins}
+
+Many theme components can be set with the `unit()` and `margin()` functions.
+
+`unit(l, unit)` is set with a length and a unit and represents the length in that unit. Supported units are e.g. `"mm"`, `"cm"`, `"points"`, `"inches"` etc. See [reference](https://stat.ethz.ch/R-manual/R-devel/library/grid/html/unit.html) for more information.
+
+
+`margin(t, r, b, l, unit)` is used to set margin theme options. It is set with a distance for each direction and a unit (which defaults to `"pt"`). The letters represent the following -- t: top, r: right, b: bottom, l: left. Margin options can also be set by `unit()` if the same margins in all directions is desired.
+
+
+Below are some examples of how units and margins can be used with legend components.
+
+```{r}
+mtcars |> 
+  ggplot(aes(x=mpg, y=wt, color=hp, shape=as.factor(gear), size=disp)) +
+  geom_point() +
+  guides(
+    size = guide_legend(theme = theme()),
+    
+    shape = guide_legend(theme = theme(legend.key.height = unit(0.4, "inch"), # height of legend key
+                                       legend.key.width = unit(0.4, "inch"), # width of legend key
+                                       legend.key.spacing.y = unit(1, "mm"))),
+    
+    color = guide_colorbar(position = "top", 
+                           theme = theme(legend.key.width = unit(10, "cm"))) # length of color
+    ) + 
+  theme(legend.box.background = element_rect(fill="gray"),
+              legend.box.margin = margin(1, 2, 4, 8, "mm")) # legend bounding box margin
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
