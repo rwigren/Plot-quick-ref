@@ -1,17 +1,18 @@
 ---
-title: "Home"
 format: html
 ---
 
 # Plot quick reference
 
-This site is meant as a quick reference for some of the popular plotting frameworks in Python and R. Navigate the top bar to choose framework to view.
+This site is meant as a quick reference for some of the popular plotting frameworks in Python and R. The pages contain examples of useful plots and information about mechanics, themes, extensions and other. Navigate the top bar view frameworks. 
 
+Currently added framework: (still work in progress)
 
+::: {layout-ncol=2}
 
-### Curently added frameworks:
-* [ggplot2](https://ggplot2.tidyverse.org/) 
+[![](./images/ggplot2_logo.svg){width=200}](https://ggplot2.tidyverse.org/)
 
+[![](./images/seaborn_logo.svg){width=200}](https://seaborn.pydata.org/)
 
-### Currently working on:
-* [Seaborn](https://seaborn.pydata.org/)
+:::
+

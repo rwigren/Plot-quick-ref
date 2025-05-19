@@ -2,6 +2,7 @@ project:
   type: website
   output-dir: docs
   render: 
+    - index.qmd
     - ggplot2_quick_ref.qmd
     - seaborn_quick_ref.qmd
 
@@ -10,8 +11,6 @@ website:
   navbar:
     background: secondary
     left:
-      - href: index.qmd
-        text: Home
       - href: ggplot2_quick_ref.qmd
         text: ggplot2
       - href: seaborn_quick_ref.qmd

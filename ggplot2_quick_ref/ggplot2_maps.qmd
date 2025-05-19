@@ -111,10 +111,10 @@ I do not currently possess the knowledge of the framework to go into depth, howe
 
 ```{r}
 #| label: map-CRS
-eur_map <- ne_countries() |> 
+world_map <- ne_countries() |> 
   select(name)
 
-ggplot(eur_map) +
+ggplot(world_map) +
   geom_sf() +
   coord_sf(crs = sf::st_crs("epsg:3035"))
 ```

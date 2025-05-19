@@ -58,7 +58,8 @@ p  +
         legend.box.background = element_rect(fill="gray"),
         legend.box.margin = unit(2, "mm"),
         legend.box.just = c("center", "bottom"),
-        legend.box = "horizontal")
+        legend.box = c("horizontal", "horizontal", "horizontal", "horizontal", "horizontal")
+        )
 ```
 
 #### Text

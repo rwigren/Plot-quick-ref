@@ -49,22 +49,21 @@ R <- matrix(c(1, .5, 0, 0,
               0, 0, -.5, 1), 
             nrow = 4, ncol = 4, byrow = TRUE)
 
-mu = c(X1=0, X2=0, Y1=-1, Y2=-1)
+mu = c(X1=0, Y1=0, X2=-1, Y2=-1)
 data = mvtnorm::rmvnorm(n, mean=mu, sigma=R )
 
-df <- tibble(Class="C1", x = data[,"X1"], y=data[, "X2"]) |> 
-        bind_rows(
-          tibble(Class="C2", x = data[,"Y1"], y=data[, "Y2"])
-        )
+df <- as_tibble(data) |> 
+        pivot_longer(everything(),
+                     names_to = c(".value", "distr"),
+                     names_pattern = "(.)(.)")
 
-p1 <- ggplot(df, aes(x=x, y=y)) +
+p1 <- ggplot(df, aes(X, Y)) +
   geom_point() +
   ggtitle("Standard")
 
-p2 <- ggplot(df, aes(x=x, y=y)) +
-  geom_point(alpha=0.1, size=3)+
+p2 <- ggplot(df, aes(X, Y)) +
+  geom_point(alpha=0.1, size=3) +
   ggtitle("Alpha = 0.1")
-
 
 p1 + p2
 ```
